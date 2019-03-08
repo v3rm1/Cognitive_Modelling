@@ -222,6 +222,7 @@ class Model {
             reset()
             dealHoleCards()
         default:
+            
             print ("wtf")
         }
         lastAct = nil

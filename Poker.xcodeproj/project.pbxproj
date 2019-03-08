@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B90A7FA22326B54002751CA /* Core ACT-R in Resources */ = {isa = PBXBuildFile; fileRef = 5B90A7F922326B54002751CA /* Core ACT-R */; };
+		5B90A7FC22326BA0002751CA /* ACT-R_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90A7FB22326BA0002751CA /* ACT-R_Model.swift */; };
 		E3908639220D8DFB0094CB72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3908638220D8DFB0094CB72 /* AppDelegate.swift */; };
 		E390863B220D8DFB0094CB72 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E390863A220D8DFB0094CB72 /* ViewController.swift */; };
 		E390863E220D8DFB0094CB72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E390863C220D8DFB0094CB72 /* Main.storyboard */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B90A7F922326B54002751CA /* Core ACT-R */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Core ACT-R"; sourceTree = "<group>"; };
+		5B90A7FB22326BA0002751CA /* ACT-R_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ACT-R_Model.swift"; sourceTree = "<group>"; };
 		E3908635220D8DFB0094CB72 /* Poker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3908638220D8DFB0094CB72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E390863A220D8DFB0094CB72 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 				E390864C220D8DFC0094CB72 /* PokerTests */,
 				E3908657220D8DFC0094CB72 /* PokerUITests */,
 				E3908636220D8DFB0094CB72 /* Products */,
+				5B90A7F922326B54002751CA /* Core ACT-R */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +111,7 @@
 				E3908641220D8DFC0094CB72 /* LaunchScreen.storyboard */,
 				E3908644220D8DFC0094CB72 /* Info.plist */,
 				E39086D4220DA17C0094CB72 /* Model.swift */,
+				5B90A7FB22326BA0002751CA /* ACT-R_Model.swift */,
 			);
 			path = Poker;
 			sourceTree = "<group>";
@@ -190,6 +196,9 @@
 		E390862D220D8DFB0094CB72 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					ghh,
+				);
 				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "C. Roest";
@@ -234,6 +243,7 @@
 			files = (
 				E3908643220D8DFC0094CB72 /* LaunchScreen.storyboard in Resources */,
 				E3908640220D8DFC0094CB72 /* Assets.xcassets in Resources */,
+				5B90A7FA22326B54002751CA /* Core ACT-R in Resources */,
 				E390863E220D8DFB0094CB72 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,6 +272,7 @@
 				E39086D5220DA17C0094CB72 /* Model.swift in Sources */,
 				E390863B220D8DFB0094CB72 /* ViewController.swift in Sources */,
 				E3908639220D8DFB0094CB72 /* AppDelegate.swift in Sources */,
+				5B90A7FC22326BA0002751CA /* ACT-R_Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
