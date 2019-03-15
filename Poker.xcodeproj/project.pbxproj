@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B3AEDF8223B9BAD0025975F /* poker.actr in Resources */ = {isa = PBXBuildFile; fileRef = 5B3AEDF7223B9BAD0025975F /* poker.actr */; };
 		5B90A7FA22326B54002751CA /* Core ACT-R in Resources */ = {isa = PBXBuildFile; fileRef = 5B90A7F922326B54002751CA /* Core ACT-R */; };
 		5B90A7FC22326BA0002751CA /* ACT-R_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90A7FB22326BA0002751CA /* ACT-R_Model.swift */; };
 		E3908639220D8DFB0094CB72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3908638220D8DFB0094CB72 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B3AEDF7223B9BAD0025975F /* poker.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = poker.actr; sourceTree = "<group>"; };
 		5B90A7F922326B54002751CA /* Core ACT-R */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Core ACT-R"; sourceTree = "<group>"; };
 		5B90A7FB22326BA0002751CA /* ACT-R_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ACT-R_Model.swift"; sourceTree = "<group>"; };
 		E3908635220D8DFB0094CB72 /* Poker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,7 @@
 		E3908637220D8DFB0094CB72 /* Poker */ = {
 			isa = PBXGroup;
 			children = (
+				5B3AEDF7223B9BAD0025975F /* poker.actr */,
 				E3908638220D8DFB0094CB72 /* AppDelegate.swift */,
 				E390863A220D8DFB0094CB72 /* ViewController.swift */,
 				E390863C220D8DFB0094CB72 /* Main.storyboard */,
@@ -242,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3908643220D8DFC0094CB72 /* LaunchScreen.storyboard in Resources */,
+				5B3AEDF8223B9BAD0025975F /* poker.actr in Resources */,
 				E3908640220D8DFC0094CB72 /* Assets.xcassets in Resources */,
 				5B90A7FA22326B54002751CA /* Core ACT-R in Resources */,
 				E390863E220D8DFB0094CB72 /* Main.storyboard in Resources */,
