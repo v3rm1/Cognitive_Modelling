@@ -10,6 +10,7 @@
 		5B3AEDF8223B9BAD0025975F /* poker.actr in Resources */ = {isa = PBXBuildFile; fileRef = 5B3AEDF7223B9BAD0025975F /* poker.actr */; };
 		5B90A7FA22326B54002751CA /* Core ACT-R in Resources */ = {isa = PBXBuildFile; fileRef = 5B90A7F922326B54002751CA /* Core ACT-R */; };
 		5B90A7FC22326BA0002751CA /* ACT-R_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90A7FB22326BA0002751CA /* ACT-R_Model.swift */; };
+		5BA025432244DC7300FB0691 /* poker2.actr in Resources */ = {isa = PBXBuildFile; fileRef = 5BA025422244DC7300FB0691 /* poker2.actr */; };
 		E3908639220D8DFB0094CB72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3908638220D8DFB0094CB72 /* AppDelegate.swift */; };
 		E390863B220D8DFB0094CB72 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E390863A220D8DFB0094CB72 /* ViewController.swift */; };
 		E390863E220D8DFB0094CB72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E390863C220D8DFB0094CB72 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		5B3AEDF7223B9BAD0025975F /* poker.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = poker.actr; sourceTree = "<group>"; };
 		5B90A7F922326B54002751CA /* Core ACT-R */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Core ACT-R"; sourceTree = "<group>"; };
 		5B90A7FB22326BA0002751CA /* ACT-R_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ACT-R_Model.swift"; sourceTree = "<group>"; };
+		5BA025422244DC7300FB0691 /* poker2.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = poker2.actr; sourceTree = "<group>"; };
 		E3908635220D8DFB0094CB72 /* Poker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3908638220D8DFB0094CB72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E390863A220D8DFB0094CB72 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				5B3AEDF7223B9BAD0025975F /* poker.actr */,
+				5BA025422244DC7300FB0691 /* poker2.actr */,
 				E3908638220D8DFB0094CB72 /* AppDelegate.swift */,
 				E390863A220D8DFB0094CB72 /* ViewController.swift */,
 				E390863C220D8DFB0094CB72 /* Main.storyboard */,
@@ -248,6 +251,7 @@
 				5B3AEDF8223B9BAD0025975F /* poker.actr in Resources */,
 				E3908640220D8DFC0094CB72 /* Assets.xcassets in Resources */,
 				5B90A7FA22326B54002751CA /* Core ACT-R in Resources */,
+				5BA025432244DC7300FB0691 /* poker2.actr in Resources */,
 				E390863E220D8DFB0094CB72 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
