@@ -1,0 +1,93 @@
+;;; Model of Poker
+;;;
+
+(add-dm
+   (raise-raise isa decision model raise player raise chanceA 0 chanceB 0)
+   (raise-fold isa decision model raise player fold chanceA 1 chanceB 0)
+   (raise-call isa decision model raise player call chanceA 1 chanceB 1)
+   (check-raise isa decision model check player raise chanceA 0 chanceB 0)
+   (goal isa goal state start)
+)
+
+(set-all-baselevels -100 10) ;; time offset and number of references
+
+(p retrieve-best-raise
+   =goal>
+     isa goal
+     state start
+     raise nil
+==>
+   =goal>
+     state retrieve-raise
+   +retrieval>
+     isa decision
+     model raise
+)
+
+(p store-raise-retrieve-fold
+   =goal>
+     isa goal
+     state retrieve-raise
+   =retrieval>
+     isa decision
+     chanceA =chance
+==>
+   =goal>
+     raise  =chance
+     state retrieve-fold
+   +retrieval>
+     isa decision
+     model fold
+)
+
+(p decide-raise
+   =goal>
+     isa goal
+     state retrieve-fold
+     raise =raise-chance
+   =retrieval>
+     isa decision
+     <=chanceA =raise-chance
+==>
+   =goal>
+     state decide
+     decision raise
+   +action>
+     isa decision
+     model raise
+)
+
+(p decide-fold
+  =goal>
+    isa goal
+    state retrieve-fold
+    raise =raise-chance
+  =retrieval>
+    isa decision
+  > chanceA = raise-chance
+==>
+  =goal>
+    state start
+    decision fold
+  +action>
+    isa decision
+    model fold
+)
+
+(p restart-after-raise
+  =goal>
+    isa goal
+    state decide
+  =action>
+    isa decision
+    chanceA =number
+==>
+  +goal>
+     isa goal
+     state start
+  -action>
+)
+
+
+(goal-focus goal)
+
