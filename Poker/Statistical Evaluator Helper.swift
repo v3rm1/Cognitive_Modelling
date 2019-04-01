@@ -8,6 +8,37 @@
 
 import Foundation
 
+// Factorial function
+// Input: int n
+// Return: n!
+func factorial(_ n: Int) -> Double {
+    if n == 0 {
+        return 1
+    }
+    var a: Double = 1
+    for i in 1...n {
+        a *= Double(i)
+    }
+    return a
+}
+
+// Combination function
+// Input: int n, int r
+// Return: nCr
+
+func combination(_ n: Int, _ r: Int) -> Double {
+    if n == r {
+        return 1
+    }
+    if n > r {
+        return 1
+    }
+    var c: Double = 1
+    c = factorial(n) / (factorial(r) * factorial(n-r))
+    return c
+}
+
+
 func cardMapScore(_ cardsHand: [String]) -> [Int] {
     var sortedHand = cardsHand.sorted()
     var valueScore: [Int] = [0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -173,3 +204,42 @@ func checkHand(_ cardsHand: [String]) -> Int {
     }
     return 1
 }
+
+func improveFour(_ currentDeckSize: Int) -> Float64 {
+    let drawOne = combination(currentDeckSize, 1)
+    let toFullHouse = (drawOne - 4)/4
+    let toFlush = (drawOne - 9)/9
+    let straightTwoEnd = (drawOne - 8)/8
+    let straightInside = (drawOne - 4)/4
+    let totalFavourable = (toFullHouse + toFlush + straightTwoEnd + straightInside)
+    return totalFavourable
+}
+
+func improveThree(_ currentDeckSize: Int) -> Float64 {
+    let drawTwo = combination(currentDeckSize, 2)
+    let fourKindOdds = (combination(2, 1) * combination(3, 1)) + (combination(4, 1) * combination(10, 1))
+    let fullHouseOdds = (combination(2, 1) * combination(3, 2))
+    let newPairOdds = (combination(10, 1) * combination(4, 2))
+    let goodOdds = (fourKindOdds + fullHouseOdds + newPairOdds)
+    let totalFavourable = (drawTwo - goodOdds)/goodOdds
+    return totalFavourable
+}
+
+func improveTwo(_ currentDeckSize: Int) -> Float64 {
+    let drawThree = combination(currentDeckSize, 3)
+    let fourKindOdds = Double(currentDeckSize - 2)
+    let threeKindOdds = (combination(2,1) * (combination(3,2) * combination(3,1) * combination(3,1) + combination(9,2) * combination(4,1) * combination(4,1) + combination(9,1) * combination(4,1) * combination(3,1) * combination(3,1)))
+    let twoPairOdds = (combination(9,1) * combination(4,2) * combination(41,1)) + (combination(3,1) * combination(3,2) * combination(42,1))
+    let fullHouseOdds = (combination(9,1) * combination(4,3)) + (combination(3,1) * combination(3,3)) + combination(2,1) * (combination(9,1) * combination(4,2) + combination(3,1) * combination(3,2))
+    let goodOdds = fourKindOdds + threeKindOdds + twoPairOdds + fullHouseOdds
+    let totalFavourable = (drawThree - goodOdds)/goodOdds
+    return totalFavourable
+}
+
+func improveOne(_ currentDeckSize: Int) -> Float64 {
+    let goodOdds = improveFour(currentDeckSize) + improveThree(currentDeckSize) + improveTwo(currentDeckSize)
+    let totalFavourable = goodOdds/3
+    return totalFavourable
+}
+
+
