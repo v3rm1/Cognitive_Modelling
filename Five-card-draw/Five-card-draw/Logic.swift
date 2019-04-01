@@ -207,43 +207,16 @@ class Hand {
     }
 
     func getWinnerOfTheHand() -> Player? {
-        var playerPheCards = [PheCard]()
-        var cpuPheCards = [PheCard]()
-        for i in 0..<5 {
-            let cardValues = player.cards[i].getCommaSeperatedString().components(separatedBy: ",")
-            guard let card = translateUserInputToCardInput(card: cardValues) else {
-                print("Invalid Input, please try entering the card details again!")
-                continue
-            }
-            playerPheCards.append(PheCard(card.0, card.1))
-        }
-        for i in 0..<5 {
-            let cardValues = cpu.cards[i].getCommaSeperatedString().components(separatedBy: ",")
-            guard let card = translateUserInputToCardInput(card: cardValues) else {
-                print("Invalid Input, please try entering the card details again!")
-                continue
-            }
-            cpuPheCards.append(PheCard(card.0, card.1))
-        }
-        player.phe = PokerHand(playerPheCards)
-        cpu.phe = PokerHand(cpuPheCards)
-        let playerHandValue = player.phe.getValueCount(player.phe.getHandCardValues()).values.reduce(0) { $0 + $1 }
-        let cpuHandValue = cpu.phe.getValueCount(player.phe.getHandCardValues()).values.reduce(0) { $0 + $1 }
-        let playerHandRank = player.phe.getHandRank()
-        let cpuHandRank = cpu.phe.getHandRank()
-        if (playerHandRank.rawValue > cpuHandRank.rawValue) {
+        let x = HandComparer()
+        
+        switch x.compare(h1: player.cards, h2: cpu.cards){
+        case 1:
             return player
-        }
-        else if (cpuHandRank.rawValue > playerHandRank.rawValue) {
+        case -1:
             return cpu
+        default:
+            return nil
         }
-        else if (playerHandValue > cpuHandValue) {
-            return player
-        }
-        else if (cpuHandValue > playerHandValue) {
-            return cpu
-        }
-        else { return nil }
     }
     
     func changePlayerToAct() {
