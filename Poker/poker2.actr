@@ -1,40 +1,15 @@
 ;;; Model of Poker
 ;;;
 
-;;; Model of prisoner's dilemma
-;;;
-
 (add-dm
-(goal isa decision state start)
+(goal isa game-state state start)
 )
 
 (set-all-baselevels -100 10) ;; time offset and number of references
 
-(p start-raise
+(p start-game
 =goal>
-isa decision
-state start
-model nil
-==>
-=goal>
-model raise
-)
-
-(p start-fold
-=goal>
-isa decision
-state start
-model nil
-
-==>
-=goal>
-model fold
-)
-
-
-(p retrieve-sequence
-=goal>
-isa decision
+isa game-state
 model nil
 player  nil
 state go
@@ -55,7 +30,7 @@ player =player
 
 (p select-move
 =goal>
-isa decision
+isa game-state
 player retrieving
 =imaginal>
 isa  sequence
@@ -76,7 +51,7 @@ player nil
 
 (p move-retrieval-failure-A
 =goal>
-isa  decision
+isa  game-state
 player retrieving
 ?retrieval>
 state  error
@@ -88,7 +63,7 @@ player nil
 
 (p move-retrieval-failure-B
 =goal>
-isa  decision
+isa  game-state
 state  retrieving
 ?retrieval>
 state  error
@@ -100,12 +75,12 @@ player nil
 
 (p take-action
 =goal>
-isa decision
+isa game-state
 model =move
 player nil
 ==>
 +action>
-isa decision
+isa game-state
 model =move
 =goal>
 isa wait
@@ -117,12 +92,12 @@ isa wait
 isa wait
 state start
 =action>
-isa decision
+isa game-state
 model =model
 player =player
 ==>
 +goal>
-isa decision
+isa game-state
 state go
 +imaginal>
 isa sequence
@@ -135,7 +110,7 @@ player =player
 =goal>
 isa   wait
 =action>
-isa decision
+isa game-state
 model =model
 player =player
 =imaginal>
@@ -144,7 +119,7 @@ model  =lastmodel
 player  =lastplayer
 ==>
 +goal>
-isa decision
+isa game-state
 state go
 =imaginal>
 next-move =player
