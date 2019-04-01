@@ -1,13 +1,36 @@
 ;;; Model of Poker
 ;;;
 
+
 (add-dm
 (goal isa game-state state start)
 )
 
 (set-all-baselevels -100 10) ;; time offset and number of references
 
-(p start-game
+(p start-raise
+=goal>
+isa game-state
+state start
+model nil
+==>
+=goal>
+model raise
+)
+
+(p start-fold
+=goal>
+isa game-state
+state start
+model nil
+
+==>
+=goal>
+model fold
+)
+
+
+(p retrieve-sequence
 =goal>
 isa game-state
 model nil
