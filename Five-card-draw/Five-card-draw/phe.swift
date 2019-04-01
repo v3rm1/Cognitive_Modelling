@@ -260,6 +260,23 @@ struct PokerHand {
         }
         return handRank
     }
+    
+    func compare(other: PokerHand) -> Int {
+        // Get the hand ranks so we don't have to calculate them again
+        let ownRank     = self.getHandRank().rawValue
+        let otherRank   = other.getHandRank().rawValue
+        let ownHand     = self.getHandCardValues().sorted()
+        let otherHand   = other.getHandCardValues().sorted()
+        let ownCounts   = self.getValueCount(self.getHandCardValues())
+        let otherCounts = other.getValueCount(other.getHandCardValues())
+        
+        // If the hands are of the same rank, we do not have to check further
+        if (ownRank != otherRank){
+            return ownRank > otherRank ? 1 : -1
+        }
+        
+        return 0;
+    }
 }
 
 let userInputValueTranslator: [String: PokerValue] = [

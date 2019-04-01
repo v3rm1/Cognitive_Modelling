@@ -16,6 +16,7 @@
 		81EE267C22293E6900CFBBE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81EE267A22293E6900CFBBE0 /* LaunchScreen.storyboard */; };
 		81EE268722293E6900CFBBE0 /* Five_card_drawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EE268622293E6900CFBBE0 /* Five_card_drawTests.swift */; };
 		81EE269222293E6900CFBBE0 /* Five_card_drawUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EE269122293E6900CFBBE0 /* Five_card_drawUITests.swift */; };
+		E3AC26C92252105E00D3D663 /* evaluate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AC26C82252105E00D3D663 /* evaluate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		81EE268D22293E6900CFBBE0 /* Five-card-drawUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Five-card-drawUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81EE269122293E6900CFBBE0 /* Five_card_drawUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Five_card_drawUITests.swift; sourceTree = "<group>"; };
 		81EE269322293E6900CFBBE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3AC26C82252105E00D3D663 /* evaluate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = evaluate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				81EE267D22293E6900CFBBE0 /* Info.plist */,
 				81C0710A223BA24F000711E0 /* Logic.swift */,
 				810619C42248337C00BED043 /* phe.swift */,
+				E3AC26C82252105E00D3D663 /* evaluate.swift */,
 			);
 			path = "Five-card-draw";
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			files = (
 				81EE267422293E6800CFBBE0 /* ViewController.swift in Sources */,
 				810619C52248337C00BED043 /* phe.swift in Sources */,
+				E3AC26C92252105E00D3D663 /* evaluate.swift in Sources */,
 				81EE267222293E6800CFBBE0 /* AppDelegate.swift in Sources */,
 				81C0710B223BA24F000711E0 /* Logic.swift in Sources */,
 			);
