@@ -1,4 +1,4 @@
-;;; Model of Poker
+;;; Model of Five-card draw Poker
 ;;;
 
 
@@ -8,6 +8,9 @@
 
 (set-all-baselevels -100 10) ;; time offset and number of references
 
+;; initial raise(call) or fold decison
+;; winning_scoresA is the hand strength of the model calculated by statistics
+
 (p start-raise
     =goal>
         isa game-state
@@ -16,6 +19,7 @@
 ==>
     =goal>
         model raise
+        outcome won
 )
 
 (p start-fold
@@ -26,65 +30,70 @@
 ==>
     =goal>
         model fold
+        outcome won
 )
 
+;; retrieve game results but only those models won
 
-(p retrieve-pattern
+(p retrieve-won-pattern
     =goal>
         isa game-state
         model nil
-        player  nil
+        outcome =outcome
         winning_scoresA = winning_scoresA
         state go
     =imaginal>
         isa  pattern
         model =model
-        player =player
+        outcome =outcome
         winning_scoresA = winning_scoresA
         next-move nil
 ==>
     =goal>
-        player retrieving
+        outcome retrieving
     +retrieval>
         isa  pattern
         model =model
-        player =player
+        outcome =outcome
         winning_scoresA = winning_scoresA
 )
+
+;; select the move
 
 (p select-move
     =goal>
         isa game-state
-        player retrieving
+        outcome retrieving
     =imaginal>
         isa  pattern
         model  =model
-        player  =player
+        outcome  =outcome
         winning_scoresA = winning_scoresA
         next-move nil
     =retrieval>
         isa  pattern
         model  =model
-        player  =player
+        outcome  =outcome
         winning_scoresA = winning_scoresA
         next-move =move3
 ==>
     =goal>
         model  =move3
-        player nil
+        outcome won
 )
 
+;; if retrieval fails
 
 (p move-retrieval-failure-A
     =goal>
         isa  game-state
-        player retrieving
+        outcome retrieving
     ?retrieval>
         state  error
 ==>
     =goal>
         model  raise
-        player nil
+        outcome won
 )
 
 (p move-retrieval-failure-B
@@ -96,14 +105,16 @@
 ==>
     =goal>
         model  fold
-        player nil
+        outcome won
 )
+
+;; take actions, pass to swift
 
 (p take-action
     =goal>
         isa game-state
         model =move
-        player nil
+        outcome won
 ==>
     +action>
         isa game-state
@@ -112,6 +123,7 @@
         isa wait
 )
 
+;; get feedback for the first run, the first winning score is not recorded
 
 (p feedback-start
     =goal>
@@ -120,20 +132,23 @@
     =action>
         isa game-state
         model =model
-        player =player
+        outcome =outcome
         winning_scoresA = winning_scoresA
 ==>
     +goal>
         isa game-state
         state go
         winning_scoresA = winning_scoresA
+        model nil
     +imaginal>
         isa pattern
         model =model
-        player =player
-        winning_scoresA = winning_scoresA
+        outcome =outcome
+        winning_scoresA nil
 )
 
+;; get feedback, the old winning score of the model is stored in memory, new is updated from swift for
+;; next play (updated together with outcome)
 
 (p feedback
     =goal>
@@ -141,7 +156,8 @@
     =action>
         isa game-state
         model =model
-        player =player
+        outcome =outcome
+        winning_scoresA = winning_scoresA
     =imaginal>
         isa  pattern
         model  =lastmodel
@@ -151,13 +167,14 @@
         isa game-state
         state go
         winning_scoresA = winning_scoresA
+        model nil
     =imaginal>
-        next-move =player
+        next-move =model
     +imaginal>
         isa  pattern
         model  =model
-        player  =player
-        winning_scoresA = winning_scoresA
+        outcome  =outcome
+        winning_scoresA = lastwinning_scoresA
 
 )
 
