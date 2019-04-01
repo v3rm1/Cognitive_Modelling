@@ -8,14 +8,6 @@
 
 import Foundation
 
-//// Hand dictionary, tracking the possible hands in Poker
-//var handDictionary = [("Straight Flush", 9), ("Four of a Kind", 8), ("Full House", 7), ("Flush", 6), ("Straight", 5), ("Three of a Kind", 4), ("Two Pairs", 3), ("One Pair", 2), ("High Card", 1)]
-//
-//// Card Order Dictionary, tracks a point for each card in a suit
-//var cardOrderDict = [("2", 2), ("3", 3), ("4", 4), ("5", 5), ("6", 6), ("7", 7), ("8", 8), ("9", 9), ("T", 10), ("J", 11), ("Q", 12), ("K", 13), ("A", 14)]
-
-
-
 // Hand evaluator function
 // Input: array hand, array table
 // Return: string Hand_Type, int improvement_score
@@ -54,4 +46,17 @@ func handEvaluator(_ cardsHand: [String], _ cardsTable: [String]) -> (String?, D
         
     return("High card", improvement)}
 
+}
+
+
+// Scoring hand
+// Rank is calculated as pattern rank (generated from checkHand function) + . + reversed cardMap (cards are in order [A, K, Q, J, T, 9, 8, 7, 6, 5, 4, 3, 2] => the score of having a Queen high is preserved over having a 5 high.
+// Input: [String] cards in hand
+// Output: String rank
+
+func handRank(_ cardsHand: [String]) -> String {
+    var rank: String
+    let cardMap = cardMapScore(cardsHand)
+    rank = String(checkHand(cardsHand)) + "." + String(cardMap.map({"\($0)"}).joined(separator: "")).reversed()
+    return rank
 }
