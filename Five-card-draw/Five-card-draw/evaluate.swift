@@ -27,6 +27,21 @@ enum HandRank: Int, Comparable{
     public static func > (a: HandRank, b: HandRank) -> Bool {
         return a.rawValue > b.rawValue
     }
+    
+    var description : String {
+        switch self {
+        // Use Internationalization, as appropriate.
+        case .HighCard: return "a High Card"
+        case .Pair: return "a Pair"
+        case .TwoPair: return "Two Pair"
+        case .ThreeOfAKind: return "Three of a Kind"
+        case .Straight: return "a Straight"
+        case .Flush: return "a Flush"
+        case .FullHouse: return "a Full House"
+        case .FourOfAKind: return "Four of a Kind"
+        case .StraightFlush: return "a Straight Flush"
+        }
+    }
 }
 
 func compareHands(hand1: [Card], hand2: [Card]) {

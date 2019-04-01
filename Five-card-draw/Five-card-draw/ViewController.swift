@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     let PLAYER_NAME = "Player"
     let CPU_NAME = "CPU"
     // Controls
+    @IBOutlet weak var winLabel: UILabel!
+    @IBOutlet weak var winLabel2: UILabel!
     @IBOutlet weak var cpuCard1: UIButton!
     @IBOutlet weak var cpuCard2: UIButton!
     @IBOutlet weak var cpuCard3: UIButton!
@@ -100,6 +102,7 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         hand.reset()
         refreshControls()
     }
@@ -135,7 +138,48 @@ class ViewController: UIViewController {
         cpuCard5.isEnabled = !currButtonState
     }
     
+    func winAnimation (playerName: String, amount: Int, handName: String) {
+        btnFold.isEnabled = false
+        btnCheckCall.isEnabled = false
+        btnRaise.isEnabled = false
+        btnDraw.isEnabled = false
+        self.winLabel.text = playerName + " wins $" + String(amount)
+        self.winLabel2.text = handName
+        UIView.animate(withDuration: 0.25, delay: 0.2,
+                       options: [ .curveEaseOut],
+                       animations: {
+                        self.winLabel.center.x = self.view.center.x
+                        self.winLabel2.center.x = self.view.center.x
+        },
+                       completion: revWinAnimation)
+    }
+    
+    func revWinAnimation (b: Bool) {
+        UIView.animate(withDuration: 0.5, delay: 1.5,
+                       options: [ .curveEaseIn],
+                       animations: {
+                        self.winLabel.center.x -= self.view.bounds.width
+                        self.winLabel2.center.x -= self.view.bounds.width
+        },
+                       completion: finishAnimation)
+    }
+    
+    func finishAnimation (b : Bool){
+        hand.waitingForWinAnimation = false
+        hand.reset()
+        btnFold.isEnabled = true
+        btnCheckCall.isEnabled = true
+        btnRaise.isEnabled = true
+        btnDraw.isEnabled = true
+        refreshControls()
+    }
+    
     func refreshControls() {
+        if (hand.waitingForWinAnimation) {
+            winAnimation(playerName: hand.winnername, amount: hand.totalPot, handName: hand.winninghandname)
+            return
+        }
+        
         playerBetSize.text = String(hand.player.betSize)
         playerChipCount.text = String(hand.player.chipCount)
         cpuBetSize.text = String(hand.cpu.betSize)

@@ -163,6 +163,9 @@ class Hand {
     var playerOnButton : Player // Player to act second
     var playerCardsToDrawIndexes = [Int]()
     var cpuCardsToDrawIndexes = [Int]()
+    var waitingForWinAnimation = false
+    var winnername = "Player"
+    var winninghandname = ""
     
     init () {
         players.append(cpu)
@@ -203,7 +206,11 @@ class Hand {
         else {
         winner!.chipCount += totalPot
         }
-        reset()
+        // Inject win animation
+        self.winnername = winner!.name
+        self.winninghandname = "With " + HandComparer().getHandRank(h: winner!.cards).description
+        self.waitingForWinAnimation = true
+        //reset()
     }
 
     func getWinnerOfTheHand() -> Player? {
@@ -248,9 +255,11 @@ class Hand {
     func actionMade(action: Action) {
         switch action {
         case .fold:
+            self.winnername = playerToActAfter.name
+            self.winninghandname = playerToAct.name + " folded"
+            self.waitingForWinAnimation = true
             gameState = .done
             playerToActAfter.chipCount += totalPot
-            reset()
         case .call:
             playerToAct.chipCount -= playerToActAfter.betSize - playerToAct.betSize
             totalPot += playerToActAfter.betSize - playerToAct.betSize
