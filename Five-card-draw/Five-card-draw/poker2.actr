@@ -1,0 +1,210 @@
+;;; Model of Five-card draw Poker
+;;;
+
+
+(add-dm
+    (goal isa game-state state get-scores)
+)
+
+(set-all-baselevels -100 10) ;; time offset and number of references
+
+
+;; winning_scoresA is the hand strength of the model calculated by statistics
+;; set the winning_scoresA passed by swift
+
+(p wait-for-winningscores
+    =goal>
+        isa game-state
+        state get-scores
+        model nil
+==>
+    +action>
+        isa game-state
+    =goal>
+        state set-scores
+)
+
+(p get-winningscores
+    =goal>
+        isa game-state
+        state set-scores
+        model nil
+    =action>
+        isa game-state
+        winning_scoresA = winning_scoresA
+==>
+    =goal>
+        state start
+        winning_scoresA = winning_scoresA
+)
+
+;; initial raise(call) or fold decison
+
+(p start-raise
+    =goal>
+        isa game-state
+        state start
+        model nil
+==>
+    =goal>
+        model raise
+        outcome won
+)
+
+(p start-fold
+    =goal>
+        isa game-state
+        state start
+        model nil
+==>
+    =goal>
+        model fold
+        outcome won
+)
+
+;; retrieve game results but only those models won
+
+(p retrieve-won-pattern
+    =goal>
+        isa game-state
+        model nil
+        outcome =outcome
+        winning_scoresA = winning_scoresA
+        state go
+    =imaginal>
+        isa  pattern
+        model =model
+        outcome =outcome
+        winning_scoresA = winning_scoresA
+        move nil
+==>
+    =goal>
+        outcome retrieving
+    +retrieval>
+        isa  pattern
+        model =model
+        outcome =outcome
+        winning_scoresA = winning_scoresA
+)
+
+;; select the move
+
+(p select-move
+    =goal>
+        isa game-state
+        outcome retrieving
+    =imaginal>
+        isa  pattern
+        model  =model
+        outcome  =outcome
+        winning_scoresA = winning_scoresA
+        move nil
+    =retrieval>
+        isa  pattern
+        model  =model
+        outcome  =outcome
+        winning_scoresA = winning_scoresA
+        move =move3
+==>
+    =goal>
+        model  =move3
+        outcome won
+)
+
+;; if retrieval fails
+
+(p move-retrieval-failure-A
+    =goal>
+        isa  game-state
+        outcome retrieving
+    ?retrieval>
+        state  error
+==>
+    =goal>
+        model  raise
+        outcome won
+)
+
+(p move-retrieval-failure-B
+    =goal>
+        isa  game-state
+        state  retrieving
+    ?retrieval>
+        state  error
+==>
+    =goal>
+        model  fold
+        outcome won
+)
+
+;; take actions, pass to swift
+
+(p take-action
+    =goal>
+        isa game-state
+        model =move
+        outcome won
+==>
+    +action>
+        isa game-state
+        model =move
+    =goal>
+        isa wait
+)
+
+;; get feedback for the first run and unsuccessful retrieval, the winning score is not recorded
+
+(p feedback-start
+    =goal>
+        isa wait
+        state start
+        winning_scoresA = lastwinning_scoresA
+    =action>
+        isa game-state
+        model =model
+        outcome =outcome
+        winning_scoresA = winning_scoresA
+==>
+    +goal>
+        isa game-state
+        state go
+        winning_scoresA = winning_scoresA
+        model nil
+    +imaginal>
+        isa pattern
+        model =model
+        outcome =outcome
+        winning_scoresA = lastwinning_scoresA
+)
+
+;; get feedback, the old winning score of the model is stored in memory, new is updated from swift for
+;; next play (updated together with outcome)
+
+(p feedback
+    =goal>
+        isa   wait
+    =action>
+        isa game-state
+        model =model
+        outcome =outcome
+        winning_scoresA = winning_scoresA
+    =imaginal>
+        isa  pattern
+        winning_scoresA = lastwinning_scoresA
+==>
+    +goal>
+        isa game-state
+        state go
+        winning_scoresA = winning_scoresA
+        model nil
+    +imaginal>
+        isa  pattern
+        model  =model
+        outcome  =outcome
+        winning_scoresA = lastwinning_scoresA
+        move = model
+)
+
+
+(goal-focus goal)
+
