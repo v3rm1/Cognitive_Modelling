@@ -197,6 +197,38 @@ class Hand {
         }
     }
     
+    func computerMockAction () {
+        if (gameState == GameState.preDraw || gameState == GameState.postDraw){
+        let handComparer = HandComparer()
+        let hr = handComparer.getHandRank(h: cpu.cards)
+        let betpercentage = Double(hr.rawValue) * 0.1
+        let callpercentage = (1.00 - betpercentage) * 0.80
+        let foldpercentage = 1 - (betpercentage + callpercentage)
+        let rnd = Double.random(in:0.0..<1.0)
+        if (rnd <= foldpercentage) {
+            actionMade(action: Action.fold)
+            return
+        }
+        if (rnd <= foldpercentage + callpercentage) {
+            actionMade(action: Action.call)
+            return
+        }
+        actionMade(action: Action.raise)
+        }
+        if (gameState == GameState.draw) {
+            var idxs :[Int] = []
+            for x in 0...4 {
+                let rnd = Double.random(in:0.0..<1.0)
+                if (rnd <= 0.33) {
+                    idxs.append(x)
+                }
+            }
+            cpuCardsToDrawIndexes = idxs
+            actionMade(action: Action.draw)
+            return
+        }
+    }
+    
     func showdown() {
         let winner = getWinnerOfTheHand()
         if (winner == nil) {
@@ -234,6 +266,9 @@ class Hand {
         else {
             playerToAct = player
             playerToActAfter = cpu
+        }
+        if (playerToAct == cpu){
+            computerMockAction()
         }
     }
     
@@ -292,6 +327,7 @@ class Hand {
             hasSomeoneActed = true
             changePlayerToAct()
         }
+        
     }
     
     func isGamesStateChanging() -> Bool {
@@ -319,7 +355,9 @@ class Hand {
         playerToAct = playerUtg
         playerToActAfter = playerOnButton
         hasSomeoneActed = false
-        
+        if (playerToAct == cpu){
+            computerMockAction()
+        }
     }
     
     func reset() {
@@ -332,9 +370,13 @@ class Hand {
         cpu.cards = [Card]()
         player.phe = PokerHand()
         cpu.phe = PokerHand()
-        
+        cpuCardsToDrawIndexes = []
+        playerCardsToDrawIndexes = []
         changePlayerOnButton()
         collectBlinds()
         dealCards()
+        if (playerToAct == cpu){
+            computerMockAction()
+        }
     }
 }

@@ -249,6 +249,14 @@ class ViewController: UIViewController {
             cpuView.layer.cornerRadius = 4
             playerView.layer.borderWidth = 0
         }
+        
+        if hand.gameState != GameState.draw{
+            for i in 0..<5 {
+            cpuCards[i].layer.borderWidth = 0
+            playerCards[i].layer.borderWidth = 0
+            }
+            
+        }
     }
 }
 
