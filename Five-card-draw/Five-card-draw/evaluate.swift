@@ -171,7 +171,7 @@ class HandComparer {
         if (ranks.count != 2) {
             return false
         }
-        return false
+        return true
     }
     
     func hasFullHouse (h: [Card]) -> Bool {
@@ -191,7 +191,7 @@ class HandComparer {
         if (ranks.count != 2) {
             return false
         }
-        return false
+        return true
     }
     
     func getHandRank (h: [Card]) -> HandRank {
@@ -237,7 +237,7 @@ class HandComparer {
         let sr1 = getSortedRanks(h: h1)
         let sr2 = getSortedRanks(h: h2)
         
-        for x in (0...4).reversed(){
+        for x in 0...4{
             if (sr1[x]>sr2[x]){
                 // Player 1 has the higher card
                 return 1

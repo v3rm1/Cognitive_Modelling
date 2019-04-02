@@ -23,10 +23,10 @@ class Five_card_drawTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
-        var c11:Card = Card(suit: Suit.C, rank: 14)
-        var c12:Card = Card(suit: Suit.D, rank: 3)
-        var c13:Card = Card(suit: Suit.H, rank: 2)
-        var c14:Card = Card(suit: Suit.C, rank: 5)
+        var c11:Card = Card(suit: Suit.C, rank: 6)
+        var c12:Card = Card(suit: Suit.D, rank: 4)
+        var c13:Card = Card(suit: Suit.H, rank: 6)
+        var c14:Card = Card(suit: Suit.C, rank: 4)
         var c15:Card = Card(suit: Suit.D, rank: 4)
         
         var h1 = [c11,c12,c13,c14,c15]
