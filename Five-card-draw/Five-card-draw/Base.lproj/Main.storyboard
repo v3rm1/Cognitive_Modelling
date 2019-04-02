@@ -213,30 +213,30 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chipBlackWhite_sideBorder" translatesAutoresizingMaskIntoConstraints="NO" id="EIT-OF-uJO">
-                                        <rect key="frame" x="193" y="10" width="20" height="20"/>
+                                        <rect key="frame" x="280" y="45" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfQ-PK-qtu">
-                                        <rect key="frame" x="220" y="9" width="40" height="21"/>
+                                        <rect key="frame" x="309" y="45" width="40" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total pot: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIl-Nl-ke1">
-                                        <rect key="frame" x="114" y="9" width="76" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Players turn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRe-lC-vX0">
                                         <rect key="frame" x="0.0" y="99" width="375" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="0.58104093309859151" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total pot: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIl-Nl-ke1">
+                                        <rect key="frame" x="278" y="10" width="89" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
@@ -299,6 +299,7 @@
                         <outlet property="cpuCard4" destination="STa-Gc-n6A" id="Ooi-ky-mGW"/>
                         <outlet property="cpuCard5" destination="OIL-2g-H88" id="dAj-LI-k2K"/>
                         <outlet property="cpuChipCount" destination="aze-MG-szR" id="ZAN-Qd-0Zu"/>
+                        <outlet property="cpuChipImage" destination="zF3-UB-TsI" id="6ph-xv-UYO"/>
                         <outlet property="cpuChipsIcon" destination="cUJ-u5-DhY" id="1hl-6Z-uoi"/>
                         <outlet property="cpuView" destination="kGp-yX-g0G" id="8E8-g7-yQU"/>
                         <outlet property="playerBetSize" destination="Mle-gT-id3" id="uxb-KG-Nwi"/>
@@ -308,8 +309,10 @@
                         <outlet property="playerCard4" destination="3Vb-aQ-2BT" id="oba-lX-W0D"/>
                         <outlet property="playerCard5" destination="Wnw-eb-l0D" id="dVa-4c-gSD"/>
                         <outlet property="playerChipCount" destination="1Df-Pe-OHV" id="s4R-jA-9Cm"/>
+                        <outlet property="playerChipImage" destination="8ug-30-JzL" id="SiN-gF-HAA"/>
                         <outlet property="playerChipsIcon" destination="2ZB-Ry-Ljv" id="AWd-R8-b8U"/>
                         <outlet property="playerView" destination="pEF-oq-yuu" id="4E7-pl-9xe"/>
+                        <outlet property="potChipImage" destination="EIT-OF-uJO" id="aIN-Ed-ILP"/>
                         <outlet property="status" destination="hRe-lC-vX0" id="fzI-2x-CeU"/>
                         <outlet property="totalPot" destination="GfQ-PK-qtu" id="DIK-Tm-2Iq"/>
                         <outlet property="winLabel" destination="6lJ-Pw-kwB" id="zeo-se-Ybg"/>

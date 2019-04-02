@@ -45,6 +45,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var cpuView: UIView!
     @IBOutlet weak var playerView: UIView!
+    @IBOutlet weak var cpuChipImage: UIImageView!
+    @IBOutlet weak var playerChipImage: UIImageView!
+    @IBOutlet weak var potChipImage: UIImageView!
     @IBAction func btnFold_Clicked(_ sender: Any) {
         hand.actionMade(action: .fold)
         refreshControls()    }
@@ -139,6 +142,7 @@ class ViewController: UIViewController {
     }
     
     func winAnimation (playerName: String, amount: Int, handName: String) {
+        
         btnFold.isEnabled = false
         btnCheckCall.isEnabled = false
         btnRaise.isEnabled = false
@@ -150,6 +154,13 @@ class ViewController: UIViewController {
                        animations: {
                         self.winLabel.center.x = self.view.center.x
                         self.winLabel2.center.x = self.view.center.x
+                        if (playerName == "CPU") {
+                            self.potChipImage.center.x = self.cpuChipImage.center.x
+                            self.potChipImage.center.y = -208
+                        }else{
+                                self.potChipImage.center.x = self.playerChipImage.center.x
+                                self.potChipImage.center.y = 213 // Perfect on top = 218
+                        }
         },
                        completion: revWinAnimation)
     }
@@ -172,6 +183,8 @@ class ViewController: UIViewController {
         btnRaise.isEnabled = true
         btnDraw.isEnabled = true
         refreshControls()
+        self.potChipImage.center.x = 290
+        self.potChipImage.center.y = 55
     }
     
     func refreshControls() {
