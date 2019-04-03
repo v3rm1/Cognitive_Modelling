@@ -209,7 +209,7 @@ class Hand {
         let foldpercentage = 1 - (betpercentage + callpercentage)
         let rnd = Double.random(in:0.0..<1.0)
         if (rnd <= foldpercentage) {
-            actionMade(action: Action.fold)
+            actionMade(action: Action.call)
             return
         }
         if (rnd <= foldpercentage + callpercentage) {
