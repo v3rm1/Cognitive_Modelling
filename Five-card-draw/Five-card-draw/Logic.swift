@@ -332,6 +332,8 @@ class Hand {
         cpu.cards = [Card]()
         player.phe = PokerHand()
         cpu.phe = PokerHand()
+        cpuCardsToDrawIndexes = []
+        playerCardsToDrawIndexes = []
         
         changePlayerOnButton()
         collectBlinds()
