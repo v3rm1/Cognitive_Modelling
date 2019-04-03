@@ -54,7 +54,7 @@ class Card {
             out.append("C")
         case Suit.D:
             out.append("D")
-            
+
         }
         return out
     }
@@ -163,11 +163,6 @@ class Hand {
     var playerOnButton : Player // Player to act second
     var playerCardsToDrawIndexes = [Int]()
     var cpuCardsToDrawIndexes = [Int]()
-    var waitingForWinAnimation = false
-    var winnername = "Player"
-    var winninghandname = ""
-    var model: Poker?
-
     
     init () {
         players.append(cpu)
@@ -199,55 +194,6 @@ class Hand {
         }
     }
     
-    func computerMockAction () {
-        if (gameState == GameState.preDraw || gameState == GameState.postDraw){
-
-            let handComparer = HandComparer()
-            let hr = handComparer.getHandRank(h: cpu.cards)
-            let betpercentage = Double(hr.rawValue) * 0.1
-            let callpercentage = (1.00 - betpercentage) * 0.80
-            let foldpercentage = 1 - (betpercentage + callpercentage)
-            let rnd = Double.random(in:0.0..<1.0)
-            if (model != nil && model!.loadedModel == "prisoner" && model!.waitingForAction) && model!.actionChunk() {
-                switch (model!.lastAction(slot: "model")!) {
-                case ("won"):
-                    actionMade(action: Action.raise)
-                case ("draw"):
-                    actionMade(action: Action.call)
-                case ("lose"):
-                    actionMade(action: Action.fold)
-                default:  actionMade(action: Action.call)
-                }
-                
-                model!.modifyLastAction(slot: "outcome", value: String(1))
-                //            model!.waitingForAction = false
-                model?.time += 2.0
-                model?.run()
-            }
-//            if (rnd <= foldpercentage) {
-//                actionMade(action: Action.fold)
-//                return
-//            }
-//            if (rnd <= foldpercentage + callpercentage) {
-//                actionMade(action: Action.call)
-//                return
-//            }
-//            actionMade(action: Action.raise)
-        }
-        if (gameState == GameState.draw) {
-            var idxs :[Int] = []
-            for x in 0...4 {
-                let rnd = Double.random(in:0.0..<1.0)
-                if (rnd <= 0.33) {
-                    idxs.append(x)
-                }
-            }
-            cpuCardsToDrawIndexes = idxs
-            actionMade(action: Action.draw)
-            return
-        }
-    }
-    
     func showdown() {
         let winner = getWinnerOfTheHand()
         if (winner == nil) {
@@ -255,26 +201,49 @@ class Hand {
             cpu.chipCount += totalPot/2
         }
         else {
-            winner!.chipCount += totalPot
+        winner!.chipCount += totalPot
         }
-        // Inject win animation
-        self.winnername = winner!.name
-        self.winninghandname = "With " + HandComparer().getHandRank(h: winner!.cards).description
-        self.waitingForWinAnimation = true
-        //reset()
+        reset()
     }
-    
+
     func getWinnerOfTheHand() -> Player? {
-        let x = HandComparer()
-        
-        switch x.compare(h1: player.cards, h2: cpu.cards){
-        case 1:
-            return player
-        case -1:
-            return cpu
-        default:
-            return nil
+        var playerPheCards = [PheCard]()
+        var cpuPheCards = [PheCard]()
+        for i in 0..<5 {
+            let cardValues = player.cards[i].getCommaSeperatedString().components(separatedBy: ",")
+            guard let card = translateUserInputToCardInput(card: cardValues) else {
+                print("Invalid Input, please try entering the card details again!")
+                continue
+            }
+            playerPheCards.append(PheCard(card.0, card.1))
         }
+        for i in 0..<5 {
+            let cardValues = cpu.cards[i].getCommaSeperatedString().components(separatedBy: ",")
+            guard let card = translateUserInputToCardInput(card: cardValues) else {
+                print("Invalid Input, please try entering the card details again!")
+                continue
+            }
+            cpuPheCards.append(PheCard(card.0, card.1))
+        }
+        player.phe = PokerHand(playerPheCards)
+        cpu.phe = PokerHand(cpuPheCards)
+        let playerHandValue = player.phe.getValueCount(player.phe.getHandCardValues()).values.reduce(0) { $0 + $1 }
+        let cpuHandValue = cpu.phe.getValueCount(player.phe.getHandCardValues()).values.reduce(0) { $0 + $1 }
+        let playerHandRank = player.phe.getHandRank()
+        let cpuHandRank = cpu.phe.getHandRank()
+        if (playerHandRank.rawValue > cpuHandRank.rawValue) {
+            return player
+        }
+        else if (cpuHandRank.rawValue > playerHandRank.rawValue) {
+            return cpu
+        }
+        else if (playerHandValue > cpuHandValue) {
+            return player
+        }
+        else if (cpuHandValue > playerHandValue) {
+            return cpu
+        }
+        else { return nil }
     }
     
     func changePlayerToAct() {
@@ -285,9 +254,6 @@ class Hand {
         else {
             playerToAct = player
             playerToActAfter = cpu
-        }
-        if (playerToAct == cpu){
-            computerMockAction()
         }
     }
     
@@ -309,11 +275,9 @@ class Hand {
     func actionMade(action: Action) {
         switch action {
         case .fold:
-            self.winnername = playerToActAfter.name
-            self.winninghandname = playerToAct.name + " folded"
-            self.waitingForWinAnimation = true
             gameState = .done
             playerToActAfter.chipCount += totalPot
+            reset()
         case .call:
             playerToAct.chipCount -= playerToActAfter.betSize - playerToAct.betSize
             totalPot += playerToActAfter.betSize - playerToAct.betSize
@@ -346,7 +310,6 @@ class Hand {
             hasSomeoneActed = true
             changePlayerToAct()
         }
-        
     }
     
     func isGamesStateChanging() -> Bool {
@@ -374,9 +337,7 @@ class Hand {
         playerToAct = playerUtg
         playerToActAfter = playerOnButton
         hasSomeoneActed = false
-        if (playerToAct == cpu){
-            computerMockAction()
-        }
+        
     }
     
     func reset() {
@@ -389,13 +350,9 @@ class Hand {
         cpu.cards = [Card]()
         player.phe = PokerHand()
         cpu.phe = PokerHand()
-        cpuCardsToDrawIndexes = []
-        playerCardsToDrawIndexes = []
+        
         changePlayerOnButton()
         collectBlinds()
         dealCards()
-        if (playerToAct == cpu){
-            computerMockAction()
-        }
     }
 }
