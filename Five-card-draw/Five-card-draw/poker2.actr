@@ -3,7 +3,7 @@
 
 
 (add-dm
-    (goal isa game-state state get-scores)
+    (goal isa game-state state start)
 )
 
 (set-all-baselevels -100 10) ;; time offset and number of references
@@ -16,10 +16,12 @@
     =goal>
         isa game-state
         state get-scores
+        winning_scoresA = winning_scoresA
         model nil
 ==>
     +action>
         isa game-state
+        winning_scoresA = winning_scoresA
     =goal>
         state set-scores
 )
@@ -34,7 +36,7 @@
         winning_scoresA = winning_scoresA
 ==>
     =goal>
-        state start
+        state go
         winning_scoresA = winning_scoresA
 )
 
@@ -48,7 +50,16 @@
 ==>
     =goal>
         model raise
-        outcome won
+)
+
+(p start-call
+    =goal>
+        isa game-state
+        state start
+        model nil
+==>
+    =goal>
+        model call
 )
 
 (p start-fold
@@ -59,31 +70,27 @@
 ==>
     =goal>
         model fold
-        outcome won
 )
 
-;; retrieve game results but only those models won
+;; retrieve game results
 
-(p retrieve-won-pattern
+(p retrieve-pattern
     =goal>
         isa game-state
         model nil
-        outcome =outcome
         winning_scoresA = winning_scoresA
         state go
     =imaginal>
         isa  pattern
         model =model
-        outcome =outcome
         winning_scoresA = winning_scoresA
         move nil
 ==>
     =goal>
-        outcome retrieving
+        state retrieving
     +retrieval>
         isa  pattern
         model =model
-        outcome =outcome
         winning_scoresA = winning_scoresA
 )
 
@@ -92,23 +99,20 @@
 (p select-move
     =goal>
         isa game-state
-        outcome retrieving
+        state retrieving
     =imaginal>
         isa  pattern
         model  =model
-        outcome  =outcome
         winning_scoresA = winning_scoresA
         move nil
     =retrieval>
         isa  pattern
         model  =model
-        outcome  =outcome
         winning_scoresA = winning_scoresA
         move =move3
 ==>
     =goal>
         model  =move3
-        outcome won
 )
 
 ;; if retrieval fails
@@ -116,13 +120,12 @@
 (p move-retrieval-failure-A
     =goal>
         isa  game-state
-        outcome retrieving
+        state retrieving
     ?retrieval>
         state  error
 ==>
     =goal>
         model  raise
-        outcome won
 )
 
 (p move-retrieval-failure-B
@@ -134,7 +137,6 @@
 ==>
     =goal>
         model  fold
-        outcome won
 )
 
 ;; take actions, pass to swift
@@ -143,7 +145,6 @@
     =goal>
         isa game-state
         model =move
-        outcome won
 ==>
     +action>
         isa game-state
@@ -158,50 +159,44 @@
     =goal>
         isa wait
         state start
-        winning_scoresA = lastwinning_scoresA
+        winning_scoresA = winning_scoresA
     =action>
         isa game-state
         model =model
-        outcome =outcome
-        winning_scoresA = winning_scoresA
 ==>
     +goal>
         isa game-state
-        state go
-        winning_scoresA = winning_scoresA
+        state get-scores
         model nil
     +imaginal>
         isa pattern
         model =model
-        outcome =outcome
-        winning_scoresA = lastwinning_scoresA
+        winning_scoresA = winning_scoresA
+        move = model
 )
 
 ;; get feedback, the old winning score of the model is stored in memory, new is updated from swift for
-;; next play (updated together with outcome)
+;; next play
 
 (p feedback
     =goal>
         isa   wait
+        winning_scoresA = winning_scoresA
     =action>
         isa game-state
         model =model
-        outcome =outcome
-        winning_scoresA = winning_scoresA
     =imaginal>
         isa  pattern
-        winning_scoresA = lastwinning_scoresA
+        winning_scoresA = winning_scoresA
 ==>
     +goal>
         isa game-state
-        state go
-        winning_scoresA = winning_scoresA
+        state get-scores
         model nil
     +imaginal>
         isa  pattern
         model  =model
-        outcome  =outcome
-        winning_scoresA = lastwinning_scoresA
+        winning_scoresA = winning_scoresA
         move = model
 )
 
