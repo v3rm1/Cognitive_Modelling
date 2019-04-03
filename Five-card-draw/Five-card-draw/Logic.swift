@@ -198,6 +198,9 @@ class Hand {
     }
     
     func computerMockAction () {
+        if !(playerToAct == cpu){
+            return
+        }
         if (gameState == GameState.preDraw || gameState == GameState.postDraw){
         let handComparer = HandComparer()
         let hr = handComparer.getHandRank(h: cpu.cards)
@@ -214,6 +217,7 @@ class Hand {
             return
         }
         actionMade(action: Action.raise)
+            return
         }
         if (gameState == GameState.draw) {
             var idxs :[Int] = []
