@@ -77,8 +77,6 @@ struct PokerHand {
     let card4: PheCard
     let card5: PheCard
     let hand: [PheCard]
-    //    let handSuitCounter: [PokerSuit:Int]
-    //    let handValueCounter: [PokerValue:Int]
     
     init() {
         self.card1 = PheCard(.two, .hearts)
@@ -96,9 +94,6 @@ struct PokerHand {
         self.card4 = cards[3]
         self.card5 = cards[4]
         self.hand = [card1, card2, card3, card4, card5]
-        //        if isHandValid() == false {
-        //            throw PokerHandError.InvalidPokerHand
-        //        }
     }
     
     func isHandValid() -> Bool {
@@ -152,9 +147,6 @@ struct PokerHand {
         return counter
     }
     
-    //    func isStraight() -> Bool {
-    //        //if
-    //    }
     func hasThreeOfAKind(_ handValueCounter: [PokerValue: Int]) -> Bool {
         var hasThreeOfAKind = false
         for key in handValueCounter.keys {

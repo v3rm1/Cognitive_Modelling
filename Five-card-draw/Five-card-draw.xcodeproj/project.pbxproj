@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		810619C52248337C00BED043 /* phe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810619C42248337C00BED043 /* phe.swift */; };
-		81C0710B223BA24F000711E0 /* Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0710A223BA24F000711E0 /* Logic.swift */; };
+		810619C52248337C00BED043 /* PokerHandEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810619C42248337C00BED043 /* PokerHandEvaluator.swift */; };
+		81C0710B223BA24F000711E0 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0710A223BA24F000711E0 /* Game.swift */; };
 		81EE267222293E6800CFBBE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EE267122293E6800CFBBE0 /* AppDelegate.swift */; };
 		81EE267422293E6800CFBBE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EE267322293E6800CFBBE0 /* ViewController.swift */; };
 		81EE267722293E6800CFBBE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81EE267522293E6800CFBBE0 /* Main.storyboard */; };
@@ -19,8 +19,25 @@
 		E36EF0922253D7F400F474CB /* Statistical Evaluator Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36EF08F2253D7F400F474CB /* Statistical Evaluator Helper.swift */; };
 		E36EF0932253D7F400F474CB /* Statistical Hand Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36EF0902253D7F400F474CB /* Statistical Hand Evaluator.swift */; };
 		E36EF0942253D7F400F474CB /* poker2.actr in Resources */ = {isa = PBXBuildFile; fileRef = E36EF0912253D7F400F474CB /* poker2.actr */; };
-		E36EF0962253D80300F474CB /* Core ACT-R in Resources */ = {isa = PBXBuildFile; fileRef = E36EF0952253D80300F474CB /* Core ACT-R */; };
-		E3AC26C92252105E00D3D663 /* evaluate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AC26C82252105E00D3D663 /* evaluate.swift */; };
+		E3AC26C92252105E00D3D663 /* EvaluateHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AC26C82252105E00D3D663 /* EvaluateHand.swift */; };
+		E3E7C4F3225B51F00064D7C5 /* Poker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4F2225B51F00064D7C5 /* Poker.swift */; };
+		E3E7C509225B54090064D7C5 /* BufferCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4F8225B54090064D7C5 /* BufferCondition.swift */; };
+		E3E7C50A225B54090064D7C5 /* Instantiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4F9225B54090064D7C5 /* Instantiation.swift */; };
+		E3E7C50B225B54090064D7C5 /* ACTRWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4FA225B54090064D7C5 /* ACTRWindowView.swift */; };
+		E3E7C50C225B54090064D7C5 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4FB225B54090064D7C5 /* Model.swift */; };
+		E3E7C50D225B54090064D7C5 /* Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4FC225B54090064D7C5 /* Procedural.swift */; };
+		E3E7C50E225B54090064D7C5 /* SlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4FD225B54090064D7C5 /* SlotAction.swift */; };
+		E3E7C50F225B54090064D7C5 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4FE225B54090064D7C5 /* Tokenizer.swift */; };
+		E3E7C510225B54090064D7C5 /* Temporal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4FF225B54090064D7C5 /* Temporal.swift */; };
+		E3E7C511225B54090064D7C5 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C500225B54090064D7C5 /* Parser.swift */; };
+		E3E7C512225B54090064D7C5 /* FocusRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C501225B54090064D7C5 /* FocusRing.swift */; };
+		E3E7C513225B54090064D7C5 /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C502225B54090064D7C5 /* Declarative.swift */; };
+		E3E7C514225B54090064D7C5 /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C503225B54090064D7C5 /* Production.swift */; };
+		E3E7C515225B54090064D7C5 /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C504225B54090064D7C5 /* Chunk.swift */; };
+		E3E7C516225B54090064D7C5 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C505225B54090064D7C5 /* Support.swift */; };
+		E3E7C517225B54090064D7C5 /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C506225B54090064D7C5 /* SlotCondition.swift */; };
+		E3E7C518225B54090064D7C5 /* Vision.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C507225B54090064D7C5 /* Vision.swift */; };
+		E3E7C519225B54090064D7C5 /* BufferAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C508225B54090064D7C5 /* BufferAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		810619C42248337C00BED043 /* phe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phe.swift; sourceTree = "<group>"; };
-		81C0710A223BA24F000711E0 /* Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logic.swift; sourceTree = "<group>"; };
+		810619C42248337C00BED043 /* PokerHandEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokerHandEvaluator.swift; sourceTree = "<group>"; };
+		81C0710A223BA24F000711E0 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		81EE266E22293E6800CFBBE0 /* Five-card-draw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Five-card-draw.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81EE267122293E6800CFBBE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81EE267322293E6800CFBBE0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,8 +76,25 @@
 		E36EF08F2253D7F400F474CB /* Statistical Evaluator Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Statistical Evaluator Helper.swift"; sourceTree = "<group>"; };
 		E36EF0902253D7F400F474CB /* Statistical Hand Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Statistical Hand Evaluator.swift"; sourceTree = "<group>"; };
 		E36EF0912253D7F400F474CB /* poker2.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = poker2.actr; sourceTree = "<group>"; };
-		E36EF0952253D80300F474CB /* Core ACT-R */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Core ACT-R"; sourceTree = "<group>"; };
-		E3AC26C82252105E00D3D663 /* evaluate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = evaluate.swift; sourceTree = "<group>"; };
+		E3AC26C82252105E00D3D663 /* EvaluateHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateHand.swift; sourceTree = "<group>"; };
+		E3E7C4F2225B51F00064D7C5 /* Poker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poker.swift; sourceTree = "<group>"; };
+		E3E7C4F8225B54090064D7C5 /* BufferCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BufferCondition.swift; path = "Core ACT-R/BufferCondition.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C4F9225B54090064D7C5 /* Instantiation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Instantiation.swift; path = "Core ACT-R/Instantiation.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C4FA225B54090064D7C5 /* ACTRWindowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ACTRWindowView.swift; path = "Core ACT-R/ACTRWindowView.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C4FB225B54090064D7C5 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = "Core ACT-R/Model.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C4FC225B54090064D7C5 /* Procedural.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Procedural.swift; path = "Core ACT-R/Procedural.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C4FD225B54090064D7C5 /* SlotAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlotAction.swift; path = "Core ACT-R/SlotAction.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C4FE225B54090064D7C5 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tokenizer.swift; path = "Core ACT-R/Tokenizer.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C4FF225B54090064D7C5 /* Temporal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Temporal.swift; path = "Core ACT-R/Temporal.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C500225B54090064D7C5 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = "Core ACT-R/Parser.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C501225B54090064D7C5 /* FocusRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FocusRing.swift; path = "Core ACT-R/FocusRing.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C502225B54090064D7C5 /* Declarative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Declarative.swift; path = "Core ACT-R/Declarative.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C503225B54090064D7C5 /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Production.swift; path = "Core ACT-R/Production.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C504225B54090064D7C5 /* Chunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Chunk.swift; path = "Core ACT-R/Chunk.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C505225B54090064D7C5 /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Support.swift; path = "Core ACT-R/Support.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C506225B54090064D7C5 /* SlotCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlotCondition.swift; path = "Core ACT-R/SlotCondition.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C507225B54090064D7C5 /* Vision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vision.swift; path = "Core ACT-R/Vision.swift"; sourceTree = SOURCE_ROOT; };
+		E3E7C508225B54090064D7C5 /* BufferAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BufferAction.swift; path = "Core ACT-R/BufferAction.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +125,6 @@
 		81EE266522293E6800CFBBE0 = {
 			isa = PBXGroup;
 			children = (
-				E36EF0952253D80300F474CB /* Core ACT-R */,
 				81EE267022293E6800CFBBE0 /* Five-card-draw */,
 				81EE268522293E6900CFBBE0 /* Five-card-drawTests */,
 				81EE269022293E6900CFBBE0 /* Five-card-drawUITests */,
@@ -112,18 +145,19 @@
 		81EE267022293E6800CFBBE0 /* Five-card-draw */ = {
 			isa = PBXGroup;
 			children = (
-				E36EF0912253D7F400F474CB /* poker2.actr */,
-				E36EF08F2253D7F400F474CB /* Statistical Evaluator Helper.swift */,
-				E36EF0902253D7F400F474CB /* Statistical Hand Evaluator.swift */,
+				E3E7C4F5225B53CA0064D7C5 /* Core ACT-R */,
+				E3E7C51A225B542F0064D7C5 /* Models */,
+				E3E7C51B225B54480064D7C5 /* StatisticalTools */,
 				81EE267122293E6800CFBBE0 /* AppDelegate.swift */,
 				81EE267322293E6800CFBBE0 /* ViewController.swift */,
 				81EE267522293E6800CFBBE0 /* Main.storyboard */,
 				81EE267822293E6900CFBBE0 /* Assets.xcassets */,
 				81EE267A22293E6900CFBBE0 /* LaunchScreen.storyboard */,
 				81EE267D22293E6900CFBBE0 /* Info.plist */,
-				81C0710A223BA24F000711E0 /* Logic.swift */,
-				810619C42248337C00BED043 /* phe.swift */,
-				E3AC26C82252105E00D3D663 /* evaluate.swift */,
+				81C0710A223BA24F000711E0 /* Game.swift */,
+				810619C42248337C00BED043 /* PokerHandEvaluator.swift */,
+				E3AC26C82252105E00D3D663 /* EvaluateHand.swift */,
+				E3E7C4F2225B51F00064D7C5 /* Poker.swift */,
 			);
 			path = "Five-card-draw";
 			sourceTree = "<group>";
@@ -144,6 +178,47 @@
 				81EE269322293E6900CFBBE0 /* Info.plist */,
 			);
 			path = "Five-card-drawUITests";
+			sourceTree = "<group>";
+		};
+		E3E7C4F5225B53CA0064D7C5 /* Core ACT-R */ = {
+			isa = PBXGroup;
+			children = (
+				E3E7C4FA225B54090064D7C5 /* ACTRWindowView.swift */,
+				E3E7C508225B54090064D7C5 /* BufferAction.swift */,
+				E3E7C4F8225B54090064D7C5 /* BufferCondition.swift */,
+				E3E7C504225B54090064D7C5 /* Chunk.swift */,
+				E3E7C502225B54090064D7C5 /* Declarative.swift */,
+				E3E7C501225B54090064D7C5 /* FocusRing.swift */,
+				E3E7C4F9225B54090064D7C5 /* Instantiation.swift */,
+				E3E7C4FB225B54090064D7C5 /* Model.swift */,
+				E3E7C500225B54090064D7C5 /* Parser.swift */,
+				E3E7C4FC225B54090064D7C5 /* Procedural.swift */,
+				E3E7C503225B54090064D7C5 /* Production.swift */,
+				E3E7C4FD225B54090064D7C5 /* SlotAction.swift */,
+				E3E7C506225B54090064D7C5 /* SlotCondition.swift */,
+				E3E7C505225B54090064D7C5 /* Support.swift */,
+				E3E7C4FF225B54090064D7C5 /* Temporal.swift */,
+				E3E7C4FE225B54090064D7C5 /* Tokenizer.swift */,
+				E3E7C507225B54090064D7C5 /* Vision.swift */,
+			);
+			name = "Core ACT-R";
+			sourceTree = "<group>";
+		};
+		E3E7C51A225B542F0064D7C5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E36EF0912253D7F400F474CB /* poker2.actr */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		E3E7C51B225B54480064D7C5 /* StatisticalTools */ = {
+			isa = PBXGroup;
+			children = (
+				E36EF08F2253D7F400F474CB /* Statistical Evaluator Helper.swift */,
+				E36EF0902253D7F400F474CB /* Statistical Hand Evaluator.swift */,
+			);
+			name = StatisticalTools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,7 +328,6 @@
 				81EE267C22293E6900CFBBE0 /* LaunchScreen.storyboard in Resources */,
 				81EE267922293E6900CFBBE0 /* Assets.xcassets in Resources */,
 				E36EF0942253D7F400F474CB /* poker2.actr in Resources */,
-				E36EF0962253D80300F474CB /* Core ACT-R in Resources */,
 				81EE267722293E6800CFBBE0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,12 +354,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				81EE267422293E6800CFBBE0 /* ViewController.swift in Sources */,
+				E3E7C50F225B54090064D7C5 /* Tokenizer.swift in Sources */,
+				E3E7C50E225B54090064D7C5 /* SlotAction.swift in Sources */,
 				E36EF0922253D7F400F474CB /* Statistical Evaluator Helper.swift in Sources */,
-				810619C52248337C00BED043 /* phe.swift in Sources */,
+				810619C52248337C00BED043 /* PokerHandEvaluator.swift in Sources */,
+				E3E7C50D225B54090064D7C5 /* Procedural.swift in Sources */,
+				E3E7C50C225B54090064D7C5 /* Model.swift in Sources */,
+				E3E7C50B225B54090064D7C5 /* ACTRWindowView.swift in Sources */,
 				E36EF0932253D7F400F474CB /* Statistical Hand Evaluator.swift in Sources */,
-				E3AC26C92252105E00D3D663 /* evaluate.swift in Sources */,
+				E3E7C519225B54090064D7C5 /* BufferAction.swift in Sources */,
+				E3AC26C92252105E00D3D663 /* EvaluateHand.swift in Sources */,
+				E3E7C514225B54090064D7C5 /* Production.swift in Sources */,
+				E3E7C516225B54090064D7C5 /* Support.swift in Sources */,
+				E3E7C512225B54090064D7C5 /* FocusRing.swift in Sources */,
 				81EE267222293E6800CFBBE0 /* AppDelegate.swift in Sources */,
-				81C0710B223BA24F000711E0 /* Logic.swift in Sources */,
+				81C0710B223BA24F000711E0 /* Game.swift in Sources */,
+				E3E7C518225B54090064D7C5 /* Vision.swift in Sources */,
+				E3E7C515225B54090064D7C5 /* Chunk.swift in Sources */,
+				E3E7C513225B54090064D7C5 /* Declarative.swift in Sources */,
+				E3E7C50A225B54090064D7C5 /* Instantiation.swift in Sources */,
+				E3E7C510225B54090064D7C5 /* Temporal.swift in Sources */,
+				E3E7C517225B54090064D7C5 /* SlotCondition.swift in Sources */,
+				E3E7C4F3225B51F00064D7C5 /* Poker.swift in Sources */,
+				E3E7C511225B54090064D7C5 /* Parser.swift in Sources */,
+				E3E7C509225B54090064D7C5 /* BufferCondition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,8 @@ import UIKit
 import Foundation
 
 class ViewController: UIViewController {
-
+    var model = Poker()
+    var timer: Timer? = nil
     // Vars
     let hand = Hand()
     let BET_SIZE = 20
@@ -48,6 +49,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var cpuChipImage: UIImageView!
     @IBOutlet weak var playerChipImage: UIImageView!
     @IBOutlet weak var potChipImage: UIImageView!
+    
+    // UI Actions
     @IBAction func btnFold_Clicked(_ sender: Any) {
         hand.actionMade(action: .fold)
         refreshControls()    }
@@ -105,9 +108,22 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(model.loadedModel as Any)
+        if model.loadedModel != "poker" {
+            model.loadedModel = "poker"
+            model.loadModel(fileName: "poker2")
+            model.reset()
+        }
+        print("Setting listener for Action")
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.receiveAction), name: NSNotification.Name(rawValue: "Action"), object: nil)
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         hand.reset()
         refreshControls()
+    }
+    
+    @objc func receiveAction() {
+        print("Awaiting Player action")
+        
     }
     
     func addRemoveBorder(_ button: UIButton) {
@@ -118,7 +134,7 @@ class ViewController: UIViewController {
     
     func displayCards() {
         for i in 0..<5 {
-        cpuCards[i].setBackgroundImage(UIImage(named: hand.cpu.cards[i].toPictureName()), for: .normal)
+        cpuCards[i].setBackgroundImage(UIImage(named: "yellow_back"), for: .normal)
             cpuCards[i].setTitle("", for: .normal)
         }
         for i in 0..<5 {
