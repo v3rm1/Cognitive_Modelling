@@ -156,7 +156,7 @@ class Hand {
     let cpu = Player(name: "CPU")
     let player = Player(name: "Player")
     var players = [Player]()
-    var hasSomeoneActed = false
+    var playerAction = false
     var playerToAct : Player
     var playerToActAfter : Player
     var playerUtg : Player // Player to act first
@@ -197,6 +197,43 @@ class Hand {
         }
     }
     
+    func modelAction() {
+        if !(playerToAct == cpu){
+            return
+        }
+        if (gameState == GameState.preDraw || gameState == GameState.postDraw){
+            let handComparer = HandComparer()
+            let hr = handComparer.getHandRank(h: cpu.cards)
+            let betpercentage = Double(hr.rawValue) * 0.1
+            let callpercentage = (1.00 - betpercentage) * 0.80
+            let foldpercentage = 1 - (betpercentage + callpercentage)
+            let rnd = Double.random(in:0.0..<1.0)
+            if (rnd <= foldpercentage) {
+                actionMade(action: Action.call)
+                return
+            }
+            if (rnd <= foldpercentage + callpercentage) {
+                actionMade(action: Action.call)
+                return
+            }
+            actionMade(action: Action.raise)
+            return
+        }
+        if (gameState == GameState.draw) {
+            var idxs :[Int] = []
+            for x in 0...4 {
+                let rnd = Double.random(in:0.0..<1.0)
+                if (rnd <= 0.33) {
+                    idxs.append(x)
+                }
+            }
+            cpuCardsToDrawIndexes = idxs
+            actionMade(action: Action.draw)
+            return
+        }
+    }
+    
+    
     func showdown() {
         let winner = getWinnerOfTheHand()
         if (winner == nil) {
@@ -230,6 +267,9 @@ class Hand {
         if (playerToAct == player) {
             playerToAct = cpu
             playerToActAfter = player
+        }
+        if (playerToAct == cpu) {
+            modelAction()
         }
         else {
             playerToAct = player
@@ -282,6 +322,11 @@ class Hand {
         default:
             print("🧐")
         }
+        
+        if (playerToAct == cpu) {
+            modelAction()
+            playerAction = false
+        }
         if (isGamesStateChanging()) {
             moveToNextGameState()
             if (gameState == .done) {
@@ -289,13 +334,13 @@ class Hand {
             }
         }
         else {
-            hasSomeoneActed = true
+            playerAction = true
             changePlayerToAct()
         }
     }
     
     func isGamesStateChanging() -> Bool {
-        if (!hasSomeoneActed || playerToAct.betSize != playerToActAfter.betSize) {
+        if (!playerAction || playerToAct.betSize != playerToActAfter.betSize) {
             return false
         }
         else {
@@ -318,7 +363,7 @@ class Hand {
         cpu.betSize = 0
         playerToAct = playerUtg
         playerToActAfter = playerOnButton
-        hasSomeoneActed = false
+        playerAction = false
         
     }
     
@@ -327,14 +372,16 @@ class Hand {
         playerUtg.betSize = 0
         playerOnButton.betSize = 0
         gameState = .preDraw
-        hasSomeoneActed = false
+        playerAction = false
         player.cards = [Card]()
         cpu.cards = [Card]()
         player.phe = PokerHand()
         cpu.phe = PokerHand()
         cpuCardsToDrawIndexes = []
         playerCardsToDrawIndexes = []
-        
+        if (playerToAct == cpu) {
+            modelAction()
+        }
         changePlayerOnButton()
         collectBlinds()
         dealCards()
