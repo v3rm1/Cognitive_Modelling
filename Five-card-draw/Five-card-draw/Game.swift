@@ -8,6 +8,7 @@
 
 import Foundation
 
+var model = Poker()
 enum Suit : CaseIterable{
     case S
     case H
@@ -59,6 +60,7 @@ class Card {
         return out
     }
     
+
     func getCommaSeperatedString() -> String {
         return "\(getRankName()),\(self.suit)"
     }
@@ -169,21 +171,48 @@ class Hand {
     
     init () {
         players.append(cpu)
+        model.loadModel(fileName: "poker2")
+        model.loadedModel = "poker2"
+//        model.run()
         players.append(player)
-        let randomVal = Int.random(in: 0..<2)
-        self.playerUtg = players[randomVal]
-        self.playerOnButton = players[(randomVal+1) % 2]
-        self.playerToAct = self.playerUtg
-        self.playerToActAfter = self.playerOnButton
+        self.playerUtg = cpu
+        self.playerOnButton = player
+        self.playerToAct = self.playerOnButton
+        self.playerToActAfter = self.playerUtg
+        consoleLogPlayer()
+//        let randomVal = Int.random(in: 0..<2)
+//        self.playerUtg = players[randomVal]
+//        self.playerOnButton = players[(randomVal+1) % 2]
+//        self.playerToAct = self.playerUtg
+//        self.playerToActAfter = self.playerOnButton
+    }
+    
+    func consoleLogPlayer() {
+        print("Player To Act: ", playerToAct.name)
+        print("Player on Button: ", playerOnButton.name)
+
+        print("/nPlayer To Act After: ", playerToActAfter.name)
+        print("Player Utg: ", playerUtg.name)
+        
+        print("/nPLAYER STATS")
+        print("Player tokens: ", player.chipCount)
+        print("Player bet: ", player.betSize)
+        print("CPU bet: ", cpu.betSize)
+        print("CPU tokens: ", cpu.chipCount)
+        print("Total Pot: ", totalPot)
+        print("/nPOOL VALUE: ", player.chipCount + cpu.chipCount + totalPot)
+
+        print("GAME STATE: ", gameState)
+
     }
     
     func collectBlinds() {
-        playerUtg.chipCount = playerUtg.chipCount - sb
         playerUtg.betSize = sb
+        playerUtg.chipCount = playerUtg.chipCount - sb
         totalPot = totalPot + sb
         
-        playerOnButton.chipCount = playerOnButton.chipCount - bb
         playerOnButton.betSize = bb
+        playerOnButton.chipCount = playerOnButton.chipCount - bb
         totalPot = totalPot + bb
     }
     
@@ -198,41 +227,80 @@ class Hand {
     }
     
     func modelAction() {
+        model.run()
+        print("modelAction run")
+        consoleLogPlayer()
         if !(playerToAct == cpu){
-            return
+            return 
         }
         if (gameState == GameState.preDraw || gameState == GameState.postDraw){
             let handComparer = HandComparer()
             let hr = handComparer.getHandRank(h: cpu.cards)
-            let betpercentage = Double(hr.rawValue) * 0.1
-            let callpercentage = (1.00 - betpercentage) * 0.80
-            let foldpercentage = 1 - (betpercentage + callpercentage)
-            let rnd = Double.random(in:0.0..<1.0)
-            if (rnd <= foldpercentage) {
-                actionMade(action: Action.call)
-                return
+//            let betpercentage = Double(hr.rawValue) * 0.1
+//            let callpercentage = (1.00 - betpercentage) * 0.80
+//            let foldpercentage = 1 - (betpercentage + callpercentage)
+//            let rnd = Double.random(in:0.0..<1.0)
+            if (model.loadedModel != nil && model.loadedModel == "poker2") &&
+                model.actionChunk() {
+                print("Passing winning scores to model")
+                model.modifyLastAction(slot: "winning_scoresA", value: String(hr.rawValue))
+                model.time += 1.0
+                model.run()
             }
-            if (rnd <= foldpercentage + callpercentage) {
-                actionMade(action: Action.call)
-                return
+            print("\nPassed winning scores to model.")
+            print("Last cpu action: ", model.lastAction(slot: "cpu") as Any)
+
+            if (model.loadedModel != nil && model.loadedModel == "poker2") &&
+                model.actionChunk() {
+                switch (model.lastAction(slot: "cpu")!) {
+                case ("raise"):
+                    print("MODEL RAISED: ", playerToAct.betSize)
+                    actionMade(action: Action.raise)
+                    playerOnButton = player
+                    playerUtg = cpu
+                    changePlayerToAct()
+
+                case ("call"):
+                    print("MODEL CALLED: ", playerToAct.betSize)
+                    actionMade(action: Action.call)
+                    playerOnButton = player
+                    playerUtg = cpu
+                    changePlayerToAct()
+
+                case ("fold"):
+                    print("MODEL FOLDED")
+                    print("Total Pot: ", totalPot)
+                    actionMade(action: Action.fold)
+                default:  actionMade(action: Action.call)
+                }
+                model.time += 2.0
+                model.run()
+                print("END: modelAction")
+                consoleLogPlayer()
             }
-            actionMade(action: Action.raise)
-            return
+           
         }
         if (gameState == GameState.draw) {
-            var idxs :[Int] = []
-            for x in 0...4 {
-                let rnd = Double.random(in:0.0..<1.0)
-                if (rnd <= 0.33) {
-                    idxs.append(x)
-                }
+            if (playerToAct == player) {
+                actionMade(action: Action.draw)
+                print("Game state draw")
+                consoleLogPlayer()
             }
-            cpuCardsToDrawIndexes = idxs
-            actionMade(action: Action.draw)
-            return
+            else {
+                var idxs :[Int] = []
+                for x in 0...4 {
+                    let rnd = Double.random(in:0.0..<1.0)
+                    if (rnd <= 0.33) {
+                        idxs.append(x)
+                    }
+                }
+                cpuCardsToDrawIndexes = idxs
+                actionMade(action: Action.draw)
+                return
+            }
         }
     }
-    
+   
     
     func showdown() {
         let winner = getWinnerOfTheHand()
@@ -267,28 +335,34 @@ class Hand {
         if (playerToAct == player) {
             playerToAct = cpu
             playerToActAfter = player
+            playerOnButton = playerToAct
+            playerUtg = playerToActAfter
+            print("Change player to act: init player=player")
+            consoleLogPlayer()
         }
-        if (playerToAct == cpu) {
-            modelAction()
-        }
-        else {
+        else if (playerToAct == cpu) {
             playerToAct = player
             playerToActAfter = cpu
+            playerOnButton = playerToAct
+            playerUtg = playerToActAfter
+            print("Change player to act: init player=cpu")
+            consoleLogPlayer()
         }
     }
     
     func changePlayerOnButton() {
-        if (playerOnButton == player) {
-            playerOnButton = cpu
-            playerUtg = player
-            playerToAct = player
-            playerToActAfter = cpu
-        }
-        else {
+        if (playerOnButton == cpu && playerToAct == cpu){
+            print("Change player on button: init player=cpu")
+            consoleLogPlayer()
+            modelAction()
             playerOnButton = player
             playerUtg = cpu
-            playerToAct = cpu
-            playerToActAfter = player
+        }
+        else if (playerOnButton == player && playerToAct == player) {
+            print("Change player on button: init player=player")
+            consoleLogPlayer()
+            playerOnButton = cpu
+            playerUtg = player
         }
     }
     
@@ -300,23 +374,32 @@ class Hand {
             self.waitingForWinAnimation = true
             gameState = .done
             playerToActAfter.chipCount += totalPot
+            totalPot = 0
+            consoleLogPlayer()
         case .call:
             playerToAct.chipCount -= playerToActAfter.betSize - playerToAct.betSize
             totalPot += playerToActAfter.betSize - playerToAct.betSize
             playerToAct.betSize = playerToActAfter.betSize
+            print("ActionMade Call")
+            consoleLogPlayer()
         case .raise:
             playerToAct.chipCount -= playerToActAfter.betSize - playerToAct.betSize + bb
             totalPot += playerToActAfter.betSize - playerToAct.betSize + bb
             playerToAct.betSize += playerToActAfter.betSize - playerToAct.betSize + bb
+            print("ActionMade Raise")
+            consoleLogPlayer()
+
         case .draw:
             if (playerToAct == player) {
                 for cardToDrawIndex in playerCardsToDrawIndexes {
                     player.cards[cardToDrawIndex] = deck.draw()!
+                    consoleLogPlayer()
                 }
             }
             else {
                 for cardToDrawIndex in cpuCardsToDrawIndexes {
                     cpu.cards[cardToDrawIndex] = deck.draw()!
+                    consoleLogPlayer()
                 }
             }
         default:
@@ -324,19 +407,28 @@ class Hand {
         }
         
         if (playerToAct == cpu) {
-            modelAction()
             playerAction = false
         }
-        if (isGamesStateChanging()) {
+        else if (playerToAct == player){
+            playerAction = true
+        }
+        else if (isGamesStateChanging()) {
             moveToNextGameState()
             if (gameState == .done) {
                 showdown()
             }
+            else if (gameState == GameState.draw && playerToAct == player) {
+                actionMade(action: Action.draw)
+                print("Game state draw")
+                consoleLogPlayer()
+            }
+            else if (gameState == GameState.draw && playerToAct == cpu) {
+                actionMade(action: Action.draw)
+                print("Game state draw")
+                consoleLogPlayer()
+            }
         }
-        else {
-            playerAction = true
-            changePlayerToAct()
-        }
+
     }
     
     func isGamesStateChanging() -> Bool {
@@ -379,11 +471,11 @@ class Hand {
         cpu.phe = PokerHand()
         cpuCardsToDrawIndexes = []
         playerCardsToDrawIndexes = []
-        if (playerToAct == cpu) {
-            modelAction()
-        }
-        changePlayerOnButton()
+        playerToAct = player
+        print("Init player values")
+        consoleLogPlayer()
         collectBlinds()
         dealCards()
     }
 }
+

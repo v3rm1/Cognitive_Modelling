@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class ViewController: UIViewController {
-    var model = Poker()
+    var model: Poker?
     var timer: Timer? = nil
     // Vars
     let hand = Hand()
@@ -53,15 +53,25 @@ class ViewController: UIViewController {
     // UI Actions
     @IBAction func btnFold_Clicked(_ sender: Any) {
         hand.actionMade(action: .fold)
-        refreshControls()    }
+        hand.changePlayerToAct()
+        hand.changePlayerOnButton()
+        refreshControls()
+    }
+    
     @IBAction func btnCheckCall_Clicked(_ sender: Any) {
         hand.actionMade(action: .call)
+        hand.changePlayerToAct()
+        hand.changePlayerOnButton()
         refreshControls()
     }
+    
     @IBAction func btnRaise_Clicked(_ sender: Any) {
         hand.actionMade(action: .raise)
+        hand.changePlayerToAct()
+        hand.changePlayerOnButton()
         refreshControls()
     }
+    
     @IBAction func btnDraw_Clicked(_ sender: UIButton) {
         hand.actionMade(action: .draw)
         if (hand.playerToActAfter == hand.player) {
@@ -70,27 +80,28 @@ class ViewController: UIViewController {
             }
         }
         else {
+            print("CPU CARD COUNT: ", cpuCards.count)
             for i in 0..<cpuCards.count {
                 cpuCards[i].layer.borderWidth = 0
             }
         }
         refreshControls()
     }
-    @IBAction func cpuCardTouched(_ sender: UIButton) {
-        if (hand.gameState == .draw && hand.playerToAct == hand.cpu) {
-            addRemoveBorder(sender)
-            for i in 0..<cpuCards.count {
-                if (sender == cpuCards[i]) {
-                    if (!hand.cpuCardsToDrawIndexes.contains(i)) {
-                        hand.cpuCardsToDrawIndexes.append(i)
-                    }
-                    else {
-                        hand.cpuCardsToDrawIndexes.remove(at: hand.cpuCardsToDrawIndexes.firstIndex(of: i)!)
-                    }
-                }
-            }
-        }
-    }
+//    @IBAction func cpuCardTouched(_ sender: UIButton) {
+//        if (hand.gameState == .draw && hand.playerToAct == hand.cpu) {
+//            addRemoveBorder(sender)
+//            for i in 0..<cpuCards.count {
+//                if (sender == cpuCards[i]) {
+//                    if (!hand.cpuCardsToDrawIndexes.contains(i)) {
+//                        hand.cpuCardsToDrawIndexes.append(i)
+//                    }
+//                    else {
+//                        hand.cpuCardsToDrawIndexes.remove(at: hand.cpuCardsToDrawIndexes.firstIndex(of: i)!)
+//                    }
+//                }
+//            }
+//        }
+//    }
     @IBAction func playerCardTouched(_ sender: UIButton) {
         if (hand.gameState == .draw && hand.playerToAct == hand.player) {
             addRemoveBorder(sender)
@@ -108,12 +119,9 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(model.loadedModel as Any)
-        if model.loadedModel != "poker" {
-            model.loadedModel = "poker"
-            model.loadModel(fileName: "poker2")
-            model.reset()
-        }
+        model?.loadModel(fileName: "poker2")
+        model?.loadedModel = "poker2"
+        model?.reset()
         print("Setting listener for Action")
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.receiveAction), name: NSNotification.Name(rawValue: "Action"), object: nil)
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)

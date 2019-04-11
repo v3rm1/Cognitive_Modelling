@@ -16,12 +16,12 @@
     =goal>
         isa game-state
         state get-scores
-        winning_scoresA = winning_scoresA
-        model nil
+        winning_scoresA =winning_scoresA
+        cpu nil
 ==>
     +action>
         isa game-state
-        winning_scoresA = winning_scoresA
+        winning_scoresA =winning_scoresA
     =goal>
         state set-scores
 )
@@ -30,14 +30,14 @@
     =goal>
         isa game-state
         state set-scores
-        model nil
+        cpu nil
     =action>
         isa game-state
-        winning_scoresA = winning_scoresA
+        winning_scoresA =winning_scoresA
 ==>
     =goal>
         state go
-        winning_scoresA = winning_scoresA
+        winning_scoresA =winning_scoresA
 )
 
 ;; initial raise(call) or fold decison
@@ -46,30 +46,30 @@
     =goal>
         isa game-state
         state start
-        model nil
+        cpu nil
 ==>
     =goal>
-        model raise
+        cpu raise
 )
 
 (p start-call
     =goal>
         isa game-state
         state start
-        model nil
+        cpu nil
 ==>
     =goal>
-        model call
+        cpu call
 )
 
 (p start-fold
     =goal>
         isa game-state
         state start
-        model nil
+        cpu nil
 ==>
     =goal>
-        model fold
+        cpu fold
 )
 
 ;; retrieve game results
@@ -77,21 +77,21 @@
 (p retrieve-pattern
     =goal>
         isa game-state
-        model nil
-        winning_scoresA = winning_scoresA
+        cpu nil
+        winning_scoresA =winning_scoresA
         state go
     =imaginal>
         isa  pattern
-        model =model
-        winning_scoresA = winning_scoresA
+        cpu =cpu
+        winning_scoresA =winning_scoresA
         move nil
 ==>
     =goal>
         state retrieving
     +retrieval>
         isa  pattern
-        model =model
-        winning_scoresA = winning_scoresA
+        cpu =cpu
+        winning_scoresA =winning_scoresA
 )
 
 ;; select the move
@@ -102,17 +102,17 @@
         state retrieving
     =imaginal>
         isa  pattern
-        model  =model
-        winning_scoresA = winning_scoresA
+        cpu  =cpu
+        winning_scoresA =winning_scoresA
         move nil
     =retrieval>
         isa  pattern
-        model  =model
-        winning_scoresA = winning_scoresA
+        cpu  =cpu
+        winning_scoresA =winning_scoresA
         move =move3
 ==>
     =goal>
-        model  =move3
+        cpu  =move3
 )
 
 ;; if retrieval fails
@@ -125,7 +125,7 @@
         state  error
 ==>
     =goal>
-        model  raise
+        cpu  raise
 )
 
 (p move-retrieval-failure-B
@@ -136,7 +136,7 @@
         state  error
 ==>
     =goal>
-        model  fold
+        cpu  fold
 )
 
 ;; take actions, pass to swift
@@ -144,11 +144,11 @@
 (p take-action
     =goal>
         isa game-state
-        model =move
+        cpu =move
 ==>
     +action>
         isa game-state
-        model =move
+        cpu =move
     =goal>
         isa wait
 )
@@ -159,20 +159,20 @@
     =goal>
         isa wait
         state start
-        winning_scoresA = winning_scoresA
+        winning_scoresA =winning_scoresA
     =action>
         isa game-state
-        model =model
+        cpu =cpu
 ==>
     +goal>
         isa game-state
         state get-scores
-        model nil
+        cpu nil
     +imaginal>
         isa pattern
-        model =model
-        winning_scoresA = winning_scoresA
-        move = model
+        cpu =cpu
+        winning_scoresA =winning_scoresA
+        move =cpu
 )
 
 ;; get feedback, the old winning score of the model is stored in memory, new is updated from swift for
@@ -181,25 +181,23 @@
 (p feedback
     =goal>
         isa   wait
-        winning_scoresA = winning_scoresA
+        winning_scoresA =winning_scoresA
     =action>
         isa game-state
-        model =model
+        cpu =cpu
     =imaginal>
         isa  pattern
-        winning_scoresA = winning_scoresA
+        winning_scoresA =winning_scoresA
 ==>
     +goal>
         isa game-state
         state get-scores
-        model nil
+        cpu nil
     +imaginal>
         isa  pattern
-        model  =model
-        winning_scoresA = winning_scoresA
-        move = model
+        cpu  =cpu
+        winning_scoresA =winning_scoresA
+        move =cpu
 )
 
-
 (goal-focus goal)
-
