@@ -62,6 +62,7 @@ class ViewController: UIViewController {
         hand.actionMade(action: .call)
         hand.changePlayerToAct()
         hand.changePlayerOnButton()
+        hand.moveToNextGameState()
         refreshControls()
     }
     
@@ -69,6 +70,7 @@ class ViewController: UIViewController {
         hand.actionMade(action: .raise)
         hand.changePlayerToAct()
         hand.changePlayerOnButton()
+        hand.moveToNextGameState()
         refreshControls()
     }
     
@@ -85,7 +87,9 @@ class ViewController: UIViewController {
                 cpuCards[i].layer.borderWidth = 0
             }
         }
+        hand.moveToNextGameState()
         refreshControls()
+//        hand.moveToNextGameState()
     }
 //    @IBAction func cpuCardTouched(_ sender: UIButton) {
 //        if (hand.gameState == .draw && hand.playerToAct == hand.cpu) {
@@ -115,6 +119,7 @@ class ViewController: UIViewController {
                     }
                 }
             }
+            addRemoveBorder(sender)
         }
     }
     override func viewDidLoad() {
@@ -166,11 +171,11 @@ class ViewController: UIViewController {
     }
     
     func winAnimation (playerName: String, amount: Int, handName: String) {
-        
         btnFold.isEnabled = false
         btnCheckCall.isEnabled = false
         btnRaise.isEnabled = false
         btnDraw.isEnabled = false
+        print("PLAYER WINS AMOUNT: ", amount)
         self.winLabel.text = playerName + " wins $" + String(amount)
         self.winLabel2.text = handName
         UIView.animate(withDuration: 0.25, delay: 0.2,
@@ -221,7 +226,7 @@ class ViewController: UIViewController {
         playerChipCount.text = String(hand.player.chipCount)
         cpuBetSize.text = String(hand.cpu.betSize)
         cpuChipCount.text = String(hand.cpu.chipCount)
-        totalPot.text = String(hand.totalPot)
+        totalPot.text = String(hand.totalPot/2)
         status.text = hand.playerToAct.name + "'s turn"
         
         // Show/Hide bet chip icon
@@ -241,7 +246,6 @@ class ViewController: UIViewController {
             cpuChipsIcon.isHidden = true
             cpuBetSize.isHidden = true
         }
-        
         // Update buttons on bottom
         if (hand.gameState != .draw) {
         // Update check/call & raise buttons

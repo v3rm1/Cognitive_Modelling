@@ -278,26 +278,26 @@ class Hand {
                 print("END: modelAction")
                 consoleLogPlayer()
             }
-           
+            print("playerAction: ", playerAction)
         }
-        if (gameState == GameState.draw) {
-            if (playerToAct == player) {
-                actionMade(action: Action.draw)
-                print("Game state draw")
-                consoleLogPlayer()
-            }
-            else {
-                var idxs :[Int] = []
-                for x in 0...4 {
-                    let rnd = Double.random(in:0.0..<1.0)
-                    if (rnd <= 0.33) {
-                        idxs.append(x)
-                    }
+        else if (gameState == GameState.draw) {
+//            if (playerToAct == player) {
+//                actionMade(action: Action.draw)
+//                print("Game state draw")
+//                consoleLogPlayer()
+//            }
+//            else {
+            var idxs :[Int] = []
+            for x in 0...4 {
+                let rnd = Double.random(in:0.0..<1.0)
+                if (rnd <= 0.33) {
+                    idxs.append(x)
                 }
-                cpuCardsToDrawIndexes = idxs
-                actionMade(action: Action.draw)
-                return
             }
+            cpuCardsToDrawIndexes = idxs
+            actionMade(action: Action.draw)
+            return
+//            }
         }
     }
    
@@ -357,6 +357,7 @@ class Hand {
             modelAction()
             playerOnButton = player
             playerUtg = cpu
+            playerAction = true
         }
         else if (playerOnButton == player && playerToAct == player) {
             print("Change player on button: init player=player")
@@ -396,7 +397,7 @@ class Hand {
                     consoleLogPlayer()
                 }
             }
-            else {
+            else if (playerToAct == cpu) {
                 for cardToDrawIndex in cpuCardsToDrawIndexes {
                     cpu.cards[cardToDrawIndex] = deck.draw()!
                     consoleLogPlayer()
@@ -432,11 +433,13 @@ class Hand {
     }
     
     func isGamesStateChanging() -> Bool {
+        print("PLAYER TO ACT BET: ", playerToAct.betSize)
+        print("PLAYER TO ACT AFTER BET: ", playerToActAfter.betSize)
         if (!playerAction || playerToAct.betSize != playerToActAfter.betSize) {
-            return false
+            return true
         }
         else {
-            return true
+            return false
         }
     }
     
@@ -453,10 +456,13 @@ class Hand {
         }
         player.betSize = 0
         cpu.betSize = 0
-        playerToAct = playerUtg
-        playerToActAfter = playerOnButton
-        playerAction = false
-        
+        consoleLogPlayer()
+        playerToAct = playerOnButton
+        playerToActAfter = playerUtg
+        playerAction = true
+        if (gameState == .done) {
+            showdown()
+        }
     }
     
     func reset() {
