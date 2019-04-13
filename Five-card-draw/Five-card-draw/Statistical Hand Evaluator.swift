@@ -12,42 +12,47 @@ import Foundation
 // Input: array hand, array table
 // Return: string Hand_Type, int improvement_score
 
-func handEvaluator(_ cardsHand: [String], _ cardsTable: [String]) -> (String?, Double?){
-    let currentDeckSize: Int = 52 - (cardsHand.count) * 2 + cardsTable.count
+func handEvaluator(_ cardsHand: [String], _ cardsTable: Int) -> (Float64){
+    let currentDeckSize: Int = 52 - (cardsHand.count) * 2 + cardsTable
     let handValue: Int = checkHand(cardsHand)
     if handValue == 9{
-    return("Straight flush", 0)
+    return(0)
     }
     else if handValue == 8{
         let improvement: Float64 = improveFour(currentDeckSize)
-    return("Four of a kind", improvement)}
+    return(improvement)}
     else if handValue == 7{
         let improvement: Float64 = (improveFour(currentDeckSize) + improveThree(currentDeckSize)) / 2
-    return("Full house", improvement)}
+    return(improvement)}
     else if handValue == 6{
         let improvement: Float64 = (improveFour(currentDeckSize) + improveThree(currentDeckSize) + improveTwo(currentDeckSize)) / 3
-    return("Flush", improvement)
+    return(improvement)
     }
     else if handValue == 5{
         let improvement: Float64 = improveFour(currentDeckSize)
-    return("Straight", improvement)
+    return(improvement)
     }
     else if handValue == 4{
         let improvement: Float64 = (improveFour(currentDeckSize) + improveThree(currentDeckSize)) / 2
-    return("Three of a kind", improvement)}
+    return(improvement)}
     else if handValue == 3{
         let improvement: Float64 = (improveFour(currentDeckSize) + improveThree(currentDeckSize) + improveTwo(currentDeckSize)) / 3
-    return("Two pairs", improvement)}
+    return(improvement)}
     else if handValue == 2{
         let improvement: Float64 = (improveFour(currentDeckSize) + improveThree(currentDeckSize) + improveTwo(currentDeckSize)) / 3
-    return("One pair", improvement)}
+    return(improvement)}
     else{
         let improvement: Float64 = (improveOne(currentDeckSize))
         
-    return("High card", improvement)}
+    return(improvement)}
 
 }
 
+func maxHandScore(_ cardsHand: [String], _ cardsTable: Int) -> (Float64) {
+    let currentDeckSize: Int = 52 - (cardsHand.count) * 2 + cardsTable
+    let maxImprovement = (improveFour(currentDeckSize) + improveThree(currentDeckSize) + improveTwo(currentDeckSize) + improveOne(currentDeckSize))
+    return maxImprovement
+}
 
 // Scoring hand
 // Rank is calculated as pattern rank (generated from checkHand function) + . + reversed cardMap (cards are in order [A, K, Q, J, T, 9, 8, 7, 6, 5, 4, 3, 2] => the score of having a Queen high is preserved over having a 5 high.

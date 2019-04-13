@@ -147,6 +147,15 @@ class Player {
         return
             lhs.name == rhs.name
     }
+    
+    func sortHand() -> [String]{
+        var sortedCards: [String] = []
+        for card in self.cards {
+            sortedCards.append(card.getRankName())
+        }
+        print("Sorted cards: ", self.name, sortedCards.sorted())
+        return sortedCards.sorted()
+    }
 }
 
 class Hand {
@@ -165,6 +174,7 @@ class Hand {
     var playerOnButton : Player // Player to act second
     var playerCardsToDrawIndexes = [Int]()
     var cpuCardsToDrawIndexes = [Int]()
+    var tableCardCount = Int()
     var waitingForWinAnimation = false
     var winnername = "Player"
     var winninghandname = ""
@@ -175,6 +185,7 @@ class Hand {
         model.loadedModel = "poker2"
 //        model.run()
         players.append(player)
+        self.tableCardCount = 0
         self.playerUtg = cpu
         self.playerOnButton = player
         self.playerToAct = self.playerOnButton
@@ -254,11 +265,21 @@ class Hand {
                 model.actionChunk() {
                 switch (model.lastAction(slot: "cpu")!) {
                 case ("raise"):
-                    print("MODEL RAISED: ", playerToAct.betSize)
-                    actionMade(action: Action.raise)
-                    playerOnButton = player
-                    playerUtg = cpu
-                    changePlayerToAct()
+                    if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.5 * maxHandScore(cpu.sortHand(), tableCardCount)) {
+                        print("MODEL RAISED: ", playerToAct.betSize)
+                        actionMade(action: Action.raise)
+                        playerOnButton = player
+                        playerUtg = cpu
+                        changePlayerToAct()
+                    }
+                    else
+                        {
+                            print("MODEL CALLED: ", playerToAct.betSize)
+                            actionMade(action: Action.call)
+                            playerOnButton = player
+                            playerUtg = cpu
+                            changePlayerToAct()
+                        }
 
                 case ("call"):
                     print("MODEL CALLED: ", playerToAct.betSize)
@@ -281,12 +302,6 @@ class Hand {
             print("playerAction: ", playerAction)
         }
         else if (gameState == GameState.draw) {
-//            if (playerToAct == player) {
-//                actionMade(action: Action.draw)
-//                print("Game state draw")
-//                consoleLogPlayer()
-//            }
-//            else {
             var idxs :[Int] = []
             for x in 0...4 {
                 let rnd = Double.random(in:0.0..<1.0)
@@ -394,12 +409,14 @@ class Hand {
             if (playerToAct == player) {
                 for cardToDrawIndex in playerCardsToDrawIndexes {
                     player.cards[cardToDrawIndex] = deck.draw()!
+                    tableCardCount = tableCardCount + 1
                     consoleLogPlayer()
                 }
             }
             else if (playerToAct == cpu) {
                 for cardToDrawIndex in cpuCardsToDrawIndexes {
                     cpu.cards[cardToDrawIndex] = deck.draw()!
+                    tableCardCount = tableCardCount + 1
                     consoleLogPlayer()
                 }
             }
