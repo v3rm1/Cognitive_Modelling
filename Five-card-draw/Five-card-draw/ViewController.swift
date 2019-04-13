@@ -170,7 +170,7 @@ class ViewController: UIViewController {
         cpuCard5.isEnabled = !currButtonState
     }
     
-    func winAnimation (playerName: String, amount: Int, handName: String) {
+    func winAnimation (playerName: String, amount: String, handName: String) {
         btnFold.isEnabled = false
         btnCheckCall.isEnabled = false
         btnRaise.isEnabled = false
@@ -218,7 +218,7 @@ class ViewController: UIViewController {
     
     func refreshControls() {
         if (hand.waitingForWinAnimation) {
-            winAnimation(playerName: hand.winnername, amount: hand.totalPot, handName: hand.winninghandname)
+            winAnimation(playerName: hand.winnername, amount: totalPot!.text!, handName: hand.winninghandname)
             return
         }
         
@@ -226,7 +226,7 @@ class ViewController: UIViewController {
         playerChipCount.text = String(hand.player.chipCount)
         cpuBetSize.text = String(hand.cpu.betSize)
         cpuChipCount.text = String(hand.cpu.chipCount)
-        totalPot.text = String(hand.totalPot/2)
+        totalPot.text = String(hand.totalPot)
         status.text = hand.playerToAct.name + "'s turn"
         
         // Show/Hide bet chip icon

@@ -160,7 +160,7 @@ class Player {
 
 class Hand {
     let deck = Deck()
-    var totalPot = 0
+    var totalPot: Int = 0
     var sb = 10
     var bb = 20
     var gameState = GameState.preDraw
