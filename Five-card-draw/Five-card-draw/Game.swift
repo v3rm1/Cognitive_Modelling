@@ -265,7 +265,7 @@ class Hand {
                 model.actionChunk() {
                 switch (model.lastAction(slot: "cpu")!) {
                 case ("raise"):
-                    if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.5 * maxHandScore(cpu.sortHand(), tableCardCount)) {
+                    if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.25 * maxHandScore(cpu.sortHand(), tableCardCount)) {
                         print("MODEL RAISED: ", playerToAct.betSize)
                         actionMade(action: Action.raise)
                         playerOnButton = player

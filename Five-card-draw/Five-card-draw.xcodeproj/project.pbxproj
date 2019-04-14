@@ -16,8 +16,8 @@
 		81EE267C22293E6900CFBBE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81EE267A22293E6900CFBBE0 /* LaunchScreen.storyboard */; };
 		81EE268722293E6900CFBBE0 /* Five_card_drawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EE268622293E6900CFBBE0 /* Five_card_drawTests.swift */; };
 		81EE269222293E6900CFBBE0 /* Five_card_drawUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EE269122293E6900CFBBE0 /* Five_card_drawUITests.swift */; };
-		E36EF0922253D7F400F474CB /* Statistical Evaluator Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36EF08F2253D7F400F474CB /* Statistical Evaluator Helper.swift */; };
-		E36EF0932253D7F400F474CB /* Statistical Hand Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36EF0902253D7F400F474CB /* Statistical Hand Evaluator.swift */; };
+		E36EF0922253D7F400F474CB /* StatisticalEvaluatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36EF08F2253D7F400F474CB /* StatisticalEvaluatorHelper.swift */; };
+		E36EF0932253D7F400F474CB /* StatisticalHandEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36EF0902253D7F400F474CB /* StatisticalHandEvaluator.swift */; };
 		E36EF0942253D7F400F474CB /* poker2.actr in Resources */ = {isa = PBXBuildFile; fileRef = E36EF0912253D7F400F474CB /* poker2.actr */; };
 		E3AC26C92252105E00D3D663 /* EvaluateHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AC26C82252105E00D3D663 /* EvaluateHand.swift */; };
 		E3E7C4F3225B51F00064D7C5 /* Poker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E7C4F2225B51F00064D7C5 /* Poker.swift */; };
@@ -73,8 +73,8 @@
 		81EE268D22293E6900CFBBE0 /* Five-card-drawUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Five-card-drawUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81EE269122293E6900CFBBE0 /* Five_card_drawUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Five_card_drawUITests.swift; sourceTree = "<group>"; };
 		81EE269322293E6900CFBBE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E36EF08F2253D7F400F474CB /* Statistical Evaluator Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Statistical Evaluator Helper.swift"; sourceTree = "<group>"; };
-		E36EF0902253D7F400F474CB /* Statistical Hand Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Statistical Hand Evaluator.swift"; sourceTree = "<group>"; };
+		E36EF08F2253D7F400F474CB /* StatisticalEvaluatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticalEvaluatorHelper.swift; sourceTree = "<group>"; };
+		E36EF0902253D7F400F474CB /* StatisticalHandEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticalHandEvaluator.swift; sourceTree = "<group>"; };
 		E36EF0912253D7F400F474CB /* poker2.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = poker2.actr; sourceTree = "<group>"; };
 		E3AC26C82252105E00D3D663 /* EvaluateHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateHand.swift; sourceTree = "<group>"; };
 		E3E7C4F2225B51F00064D7C5 /* Poker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poker.swift; sourceTree = "<group>"; };
@@ -215,8 +215,8 @@
 		E3E7C51B225B54480064D7C5 /* StatisticalTools */ = {
 			isa = PBXGroup;
 			children = (
-				E36EF08F2253D7F400F474CB /* Statistical Evaluator Helper.swift */,
-				E36EF0902253D7F400F474CB /* Statistical Hand Evaluator.swift */,
+				E36EF08F2253D7F400F474CB /* StatisticalEvaluatorHelper.swift */,
+				E36EF0902253D7F400F474CB /* StatisticalHandEvaluator.swift */,
 			);
 			name = StatisticalTools;
 			sourceTree = "<group>";
@@ -356,12 +356,12 @@
 				81EE267422293E6800CFBBE0 /* ViewController.swift in Sources */,
 				E3E7C50F225B54090064D7C5 /* Tokenizer.swift in Sources */,
 				E3E7C50E225B54090064D7C5 /* SlotAction.swift in Sources */,
-				E36EF0922253D7F400F474CB /* Statistical Evaluator Helper.swift in Sources */,
+				E36EF0922253D7F400F474CB /* StatisticalEvaluatorHelper.swift in Sources */,
 				810619C52248337C00BED043 /* PokerHandEvaluator.swift in Sources */,
 				E3E7C50D225B54090064D7C5 /* Procedural.swift in Sources */,
 				E3E7C50C225B54090064D7C5 /* Model.swift in Sources */,
 				E3E7C50B225B54090064D7C5 /* ACTRWindowView.swift in Sources */,
-				E36EF0932253D7F400F474CB /* Statistical Hand Evaluator.swift in Sources */,
+				E36EF0932253D7F400F474CB /* StatisticalHandEvaluator.swift in Sources */,
 				E3E7C519225B54090064D7C5 /* BufferAction.swift in Sources */,
 				E3AC26C92252105E00D3D663 /* EvaluateHand.swift in Sources */,
 				E3E7C514225B54090064D7C5 /* Production.swift in Sources */,
