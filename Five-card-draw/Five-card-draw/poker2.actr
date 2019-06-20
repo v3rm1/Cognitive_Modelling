@@ -88,7 +88,7 @@
 ==>
     =goal>
         state retrieving
-    +retrieval>
+    +partial>
         isa  pattern
         cpu =cpu
         winning_scoresA =winning_scoresA
@@ -105,7 +105,7 @@
         cpu  =cpu
         winning_scoresA =winning_scoresA
         move nil
-    =retrieval>
+    =partial>
         isa  pattern
         cpu  =cpu
         winning_scoresA =winning_scoresA
@@ -121,7 +121,7 @@
     =goal>
         isa  game-state
         state retrieving
-    ?retrieval>
+    ?partial>
         state  error
 ==>
     =goal>
@@ -132,7 +132,7 @@
     =goal>
         isa  game-state
         state  retrieving
-    ?retrieval>
+    ?partial>
         state  error
 ==>
     =goal>
