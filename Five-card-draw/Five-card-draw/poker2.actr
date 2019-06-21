@@ -82,7 +82,6 @@
         state go
     =imaginal>
         isa  pattern
-        cpu =cpu
         winning_scoresA =winning_scoresA
         move nil
 ==>
@@ -90,7 +89,6 @@
         state retrieving
     +partial>
         isa  pattern
-        cpu =cpu
         winning_scoresA =winning_scoresA
 )
 
@@ -102,12 +100,10 @@
         state retrieving
     =imaginal>
         isa  pattern
-        cpu  =cpu
         winning_scoresA =winning_scoresA
         move nil
     =partial>
         isa  pattern
-        cpu  =cpu
         winning_scoresA =winning_scoresA
         move =move3
 ==>
@@ -153,7 +149,7 @@
         isa wait
 )
 
-;; get feedback for the first run and unsuccessful retrieval, the winning score is not recorded
+;; get feedback for the first run and unsuccessful retrieval, the winning score is recorded
 
 (p feedback-start
     =goal>
@@ -168,16 +164,14 @@
         isa game-state
         state get-scores
         cpu nil
+        winning_scoresA nil
     +imaginal>
         isa pattern
-        cpu =cpu
         winning_scoresA =winning_scoresA
         move =cpu
 )
 
-;; get feedback, the old winning score of the model is stored in memory, new is updated from swift for
-;; next play
-
+;; get feedback if retrival is successful, store the pattern into declarative memory
 (p feedback
     =goal>
         isa   wait
@@ -193,9 +187,9 @@
         isa game-state
         state get-scores
         cpu nil
+        winning_scoresA nil
     +imaginal>
         isa  pattern
-        cpu  =cpu
         winning_scoresA =winning_scoresA
         move =cpu
 )
