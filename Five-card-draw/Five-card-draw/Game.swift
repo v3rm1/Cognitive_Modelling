@@ -280,6 +280,30 @@ class Hand {
                             playerUtg = cpu
                             changePlayerToAct()
                         }
+                case ("nil"):
+                    if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.5 * maxHandScore(cpu.sortHand(), tableCardCount)) {
+                        model.modifyLastAction(slot: "cpu", value: String("raise"))
+                        print("MODEL RAISED: ", playerToAct.betSize)
+                        actionMade(action: Action.raise)
+                        playerOnButton = player
+                        playerUtg = cpu
+                        changePlayerToAct()
+                    }
+                    else if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.75 * maxHandScore(cpu.sortHand(), tableCardCount)) {
+                            model.modifyLastAction(slot: "cpu", value: String("call"))
+                            print("MODEL CALLED: ", playerToAct.betSize)
+                            actionMade(action: Action.call)
+                            playerOnButton = player
+                            playerUtg = cpu
+                            changePlayerToAct()
+                    }
+                    else
+                        {
+                        model.modifyLastAction(slot: "cpu", value: String("fold"))
+                        print("MODEL FOLDED")
+                        print("Total Pot: ", totalPot)
+                        actionMade(action: Action.fold)
+                        }
 
                 case ("call"):
                     print("MODEL CALLED: ", playerToAct.betSize)
