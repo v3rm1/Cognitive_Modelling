@@ -3,7 +3,7 @@
 
 
 (add-dm
-    (goal isa game-state state start)
+    (goal isa game-state state get-scores)
 )
 
 (set-all-baselevels -100 10) ;; time offset and number of references
@@ -42,35 +42,15 @@
 
 ;; initial raise(call) or fold decison
 
-(p start-raise
-    =goal>
-        isa game-state
-        state start
-        cpu nil
-==>
-    =goal>
-        cpu raise
-)
-
-(p start-call
-    =goal>
-        isa game-state
-        state start
-        cpu nil
-==>
-    =goal>
-        cpu call
-)
-
-(p start-fold
-    =goal>
-        isa game-state
-        state start
-        cpu nil
-==>
-    =goal>
-        cpu fold
-)
+;;(p start-raise
+;;    =goal>
+;;        isa game-state
+;;        state start
+;;        cpu nil
+;;==>
+;;    =goal>
+;;        cpu raise
+;;)
 
 ;; retrieve game results
 
@@ -111,28 +91,20 @@
         cpu  =move3
 )
 
-;; if retrieval fails
+;; if retrieval fails, let the swift decide
 
-(p move-retrieval-failure-A
+(p take-action-retrieval-failure
     =goal>
         isa  game-state
         state retrieving
     ?partial>
         state  error
 ==>
+    +action>
+        isa game-state
+        cpu nil
     =goal>
-        cpu  raise
-)
-
-(p move-retrieval-failure-B
-    =goal>
-        isa  game-state
-        state  retrieving
-    ?partial>
-        state  error
-==>
-    =goal>
-        cpu  fold
+        isa wait
 )
 
 ;; take actions, pass to swift
@@ -149,12 +121,11 @@
         isa wait
 )
 
-;; get feedback for the first run and unsuccessful retrieval, the winning score is recorded
+;; get feedback for the first run and unsuccessful retrieval, the winning score with pattern is recorded
 
 (p feedback-start
     =goal>
         isa wait
-        state start
         winning_scoresA =winning_scoresA
     =action>
         isa game-state
@@ -167,29 +138,6 @@
         winning_scoresA nil
     +imaginal>
         isa pattern
-        winning_scoresA =winning_scoresA
-        move =cpu
-)
-
-;; get feedback if retrival is successful, store the pattern into declarative memory
-(p feedback
-    =goal>
-        isa   wait
-        winning_scoresA =winning_scoresA
-    =action>
-        isa game-state
-        cpu =cpu
-    =imaginal>
-        isa  pattern
-        winning_scoresA =winning_scoresA
-==>
-    +goal>
-        isa game-state
-        state get-scores
-        cpu nil
-        winning_scoresA nil
-    +imaginal>
-        isa  pattern
         winning_scoresA =winning_scoresA
         move =cpu
 )
