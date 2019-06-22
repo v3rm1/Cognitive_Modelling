@@ -104,8 +104,8 @@ class Model {
     When you want to use partial matching, override this function when you subclass Model
     */
     func mismatchFunction(x: Value, y: Value) -> Double? {
-        if x == y {
-            return 0
+        if abs(x-y) < 0.1 {
+            return -abs(x-y)
         } else {
             return -1
         }
