@@ -250,11 +250,12 @@ class Hand {
 //            let betpercentage = Double(hr.rawValue) * 0.1
 //            let callpercentage = (1.00 - betpercentage) * 0.80
 //            let foldpercentage = 1 - (betpercentage + callpercentage)
-//            let rnd = Double.random(in:0.0..<1.0)
+            let rnd = Double.random(in:0.9..<1.1)
+            noise_hr = hr.rawValue*rnd
             if (model.loadedModel != nil && model.loadedModel == "poker2") &&
                 model.actionChunk() {
                 print("Passing winning scores to model")
-                model.modifyLastAction(slot: "winning_scoresA", value: String(hr.rawValue))
+                model.modifyLastAction(slot: "winning_scoresA", value: String(noise_hr))
                 model.time += 1.0
                 model.run()
             }
