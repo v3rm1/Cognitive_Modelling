@@ -121,9 +121,9 @@
         isa wait
 )
 
-;; get feedback for the first run and unsuccessful retrieval, the winning score with pattern is recorded
+;; get feedback and store into declarative memory, the winning score with pattern is recorded
 
-(p feedback-start
+(p feedback
     =goal>
         isa wait
         winning_scoresA =winning_scoresA
