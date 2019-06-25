@@ -101,10 +101,11 @@ class Model {
     }
     
     /**
-    When you want to use partial matching, override this function when you subclass Model
+    The mismatch function introduces a threshold for which two hand ranking scores can be seen as partial match
     */
     func mismatchFunction(x: Value, y: Value) -> Double? {
-        if fbs(x-y) < 0.1 {
+        // absolute difference divided by the requested slot value
+        if fbs(x-y)/fbs(y) < 0.1 {
             return -fbs(x-y)
         } else {
             return -1
