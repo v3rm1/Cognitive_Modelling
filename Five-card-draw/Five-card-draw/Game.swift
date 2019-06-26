@@ -183,7 +183,7 @@ class Hand {
         players.append(cpu)
         model.loadModel(fileName: "poker2")
         model.loadedModel = "poker2"
-//        model.run()
+        model.run()
         players.append(player)
         self.tableCardCount = 0
         self.playerUtg = cpu
@@ -238,6 +238,7 @@ class Hand {
     }
     
     func modelAction() {
+        model.time += 1.0
         model.run()
         print("modelAction run")
         consoleLogPlayer()
@@ -251,19 +252,19 @@ class Hand {
 //            let callpercentage = (1.00 - betpercentage) * 0.80
 //            let foldpercentage = 1 - (betpercentage + callpercentage)
             let rnd = Double.random(in:0.9..<1.1)
-            noise_hr = hr.rawValue*rnd
-            if (model.loadedModel != nil && model.loadedModel == "poker2") &&
-                model.actionChunk() {
+            let noise_hr = Double(hr.rawValue) * rnd
+            if (model.loadedModel == "poker2" && model.waitingForAction) && model.actionChunk() {
+                print(model.actionChunk())
                 print("Passing winning scores to model")
                 model.modifyLastAction(slot: "winning_scoresA", value: String(noise_hr))
+                print("Last cpu action: ", model.lastAction(slot: "winning_scoresA") as Any)
                 model.time += 1.0
                 model.run()
             }
             print("\nPassed winning scores to model.")
             print("Last cpu action: ", model.lastAction(slot: "cpu") as Any)
 
-            if (model.loadedModel != nil && model.loadedModel == "poker2") &&
-                model.actionChunk() {
+            if (model.loadedModel == "poker2" && model.waitingForAction) && model.actionChunk() {
                 switch (model.lastAction(slot: "cpu")!) {
                 case ("raise"):
                     if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.25 * maxHandScore(cpu.sortHand(), tableCardCount)) {
@@ -281,7 +282,7 @@ class Hand {
                             playerUtg = cpu
                             changePlayerToAct()
                         }
-                case ("nil"):
+                case ("start"):
                     if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.5 * maxHandScore(cpu.sortHand(), tableCardCount)) {
                         model.modifyLastAction(slot: "cpu", value: String("raise"))
                         print("MODEL RAISED: ", playerToAct.betSize)
@@ -319,8 +320,6 @@ class Hand {
                     actionMade(action: Action.fold)
                 default:  actionMade(action: Action.call)
                 }
-                model.time += 2.0
-                model.run()
                 print("END: modelAction")
                 consoleLogPlayer()
             }
