@@ -183,7 +183,6 @@ class Hand {
         players.append(cpu)
         model.loadModel(fileName: "poker2")
         model.loadedModel = "poker2"
-        model.run()
         players.append(player)
         self.tableCardCount = 0
         self.playerUtg = cpu
@@ -257,7 +256,6 @@ class Hand {
                 print(model.actionChunk())
                 print("Passing winning scores to model")
                 model.modifyLastAction(slot: "winning_scoresA", value: String(noise_hr))
-                print("Last cpu action: ", model.lastAction(slot: "winning_scoresA") as Any)
                 model.time += 1.0
                 model.run()
             }
