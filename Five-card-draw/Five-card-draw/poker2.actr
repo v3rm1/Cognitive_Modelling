@@ -102,7 +102,7 @@
 ==>
     +action>
         isa game-state
-        cpu nil
+        cpu start
     =goal>
         isa wait
 )
@@ -129,7 +129,7 @@
         winning_scoresA =winning_scoresA
     =action>
         isa game-state
-        cpu =cpu
+        cpu =move
 ==>
     +goal>
         isa game-state
@@ -139,7 +139,7 @@
     +imaginal>
         isa pattern
         winning_scoresA =winning_scoresA
-        move =cpu
+        move =move
 )
 
 (goal-focus goal)
