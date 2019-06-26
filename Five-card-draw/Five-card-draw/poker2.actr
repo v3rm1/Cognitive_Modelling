@@ -3,7 +3,7 @@
 
 
 (add-dm
-    (goal isa game-state state get-scores)
+    (goal isa game-state state get-scores flag start)
 )
 
 (set-all-baselevels -100 10) ;; time offset and number of references
@@ -46,13 +46,11 @@
         state go
     =imaginal>
         isa  pattern
-        winning_scoresA
-        move
 ==>
     =goal>
         state retrieving
     +partial>
-        isa  pattern
+        is pattern
         winning_scoresA =winning_scoresA
 )
 
@@ -62,31 +60,40 @@
     =goal>
         isa game-state
         state retrieving
-    =imaginal>
-        isa  pattern
-        winning_scoresA
-        move
     =partial>
         isa  pattern
-        winning_scoresA =winning_scoresA
         move =move3
 ==>
     =goal>
         cpu  =move3
 )
 
-;; if retrieval fails, let the swift decide
+;; if no partial match exists, let the swift decide
 
-(p take-action-retrieval-failure
+(p take-action-no-partial-match
     =goal>
         isa  game-state
-        state go
+        state retrieving
 ==>
     +action>
         isa game-state
         cpu start
     =goal>
         isa wait
+)
+
+(p take-action-start
+    =goal>
+        isa  game-state
+        state go
+        flag start
+==>
+    +action>
+        isa game-state
+        cpu start
+    =goal>
+        isa wait
+        flag not-start
 )
 
 ;; take actions, pass to swift
