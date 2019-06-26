@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class ViewController: UIViewController {
-    var model: Poker?
+    // var model: Poker?
     var timer: Timer? = nil
     // Vars
     let hand = Hand()
@@ -124,9 +124,9 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        model?.loadModel(fileName: "poker2")
-        model?.loadedModel = "poker2"
-        model?.reset()
+//        model?.loadModel(fileName: "poker2")
+//        model?.loadedModel = "poker2"
+//        model?.reset()
         print("Setting listener for Action")
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.receiveAction), name: NSNotification.Name(rawValue: "Action"), object: nil)
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
