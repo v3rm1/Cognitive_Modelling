@@ -19,7 +19,7 @@
 ==>
     +action>
         isa game-state
-        winning_scoresA
+        winning_scoresA start
     =goal>
         state set-scores
 )
@@ -37,30 +37,17 @@
         winning_scoresA =winning_scoresA
 )
 
-;; initial raise(call) or fold decison
-
-;;(p start-raise
-;;    =goal>
-;;        isa game-state
-;;        state start
-;;        cpu nil
-;;==>
-;;    =goal>
-;;        cpu raise
-;;)
-
 ;; retrieve game results
 
 (p retrieve-pattern
     =goal>
         isa game-state
-        cpu nil
         winning_scoresA =winning_scoresA
         state go
     =imaginal>
         isa  pattern
-        winning_scoresA =winning_scoresA
-        move nil
+        winning_scoresA
+        move
 ==>
     =goal>
         state retrieving
@@ -77,8 +64,8 @@
         state retrieving
     =imaginal>
         isa  pattern
-        winning_scoresA =winning_scoresA
-        move nil
+        winning_scoresA
+        move
     =partial>
         isa  pattern
         winning_scoresA =winning_scoresA
@@ -93,9 +80,7 @@
 (p take-action-retrieval-failure
     =goal>
         isa  game-state
-        state retrieving
-    ?partial>
-        state  error
+        state go
 ==>
     +action>
         isa game-state
@@ -126,7 +111,7 @@
         winning_scoresA =winning_scoresA
     =action>
         isa game-state
-        cpu =move
+        cpu =cpu
 ==>
     +goal>
         isa game-state
@@ -136,7 +121,7 @@
     +imaginal>
         isa pattern
         winning_scoresA =winning_scoresA
-        move =move
+        move =cpu
 )
 
 (goal-focus goal)
