@@ -16,12 +16,10 @@
     =goal>
         isa game-state
         state get-scores
-        winning_scoresA =winning_scoresA
-        cpu nil
 ==>
     +action>
         isa game-state
-        winning_scoresA =winning_scoresA
+        winning_scoresA
     =goal>
         state set-scores
 )
@@ -30,7 +28,6 @@
     =goal>
         isa game-state
         state set-scores
-        cpu nil
     =action>
         isa game-state
         winning_scoresA =winning_scoresA
