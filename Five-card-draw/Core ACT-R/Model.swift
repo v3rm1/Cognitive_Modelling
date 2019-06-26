@@ -105,8 +105,10 @@ class Model {
     */
     func mismatchFunction(x: Value, y: Value) -> Double? {
         // absolute difference divided by the requested slot value
-        if fbs(x-y)/fbs(y) < 0.1 {
-            return -fbs(x-y)
+        let xx = x.number()!
+        let yy = y.number()!
+        if fabs(xx-yy)/fabs(yy) < 0.1 {
+            return -fabs(xx-yy)
         } else {
             return -1
         }
