@@ -44,8 +44,6 @@
         isa game-state
         winning_scoresA =winning_scoresA
         state go
-    =imaginal>
-        isa  pattern
 ==>
     =goal>
         state retrieving
