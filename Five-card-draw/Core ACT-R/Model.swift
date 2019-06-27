@@ -103,15 +103,16 @@ class Model {
     /**
     The mismatch function introduces a threshold for which two hand ranking scores can be seen as partial match
     */
-    func mismatchFunction(x: Value, y: Value) -> Double {
+    func mismatchFunction(x: Value, y: Value) -> Double? {
         // absolute difference divided by the requested slot value
-        let xx = x.number()!
-        let yy = y.number()!
-        if fabs(xx-yy)/fabs(yy) < 0.7 {
-            return -fabs(xx-yy)
-        } else {
-            return -1
+        if let xx = x.number(){
+            if let yy = y.number(){
+                if fabs(xx-yy)/fabs(yy) < 0.1 {
+                    return -fabs(xx-yy)
+                }
+            }
         }
+        return -1
     }
     
     
