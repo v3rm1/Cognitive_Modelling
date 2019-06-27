@@ -45,11 +45,11 @@
         winning_scoresA =winning_scoresA
         state go
 ==>
-    =goal>
-        state retrieving
     +partial>
         is pattern
         winning_scoresA =winning_scoresA
+    =goal>
+        state retrieving
 )
 
 ;; select the move
@@ -64,6 +64,7 @@
 ==>
     =goal>
         cpu  =move3
+        state act
 )
 
 ;; if no partial match exists, let the swift decide
@@ -99,6 +100,7 @@
 (p take-action
     =goal>
         isa game-state
+        state act
         cpu =move
 ==>
     +action>
@@ -118,15 +120,15 @@
         isa game-state
         cpu =cpu
 ==>
-    +goal>
-        isa game-state
-        state get-scores
-        cpu nil
-        winning_scoresA nil
     +imaginal>
         isa pattern
         winning_scoresA =winning_scoresA
         move =cpu
+    =goal>
+        isa game-state
+        state get-scores
+        cpu nil
+        winning_scoresA nil
 )
 
 (goal-focus goal)
