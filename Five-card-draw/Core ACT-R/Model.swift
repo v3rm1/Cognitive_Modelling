@@ -103,16 +103,15 @@ class Model {
     /**
     The mismatch function introduces a threshold for which two hand ranking scores can be seen as partial match
     */
-    func mismatchFunction(x: Value, y: Value) -> Double? {
+    func mismatchFunction(x: Value, y: Value) -> Double {
         // absolute difference divided by the requested slot value
-        if let xx = x.number(){
-            if let yy = y.number(){
-                if fabs(xx-yy)/fabs(yy) < 0.1 {
-                    return -fabs(xx-yy)
-                }
-            }
+        let xx = x.number()!
+        let yy = y.number()!
+        if fabs(xx-yy)/fabs(yy) < 0.7 {
+            return -fabs(xx-yy)
+        } else {
+            return -1
         }
-        return -1
     }
     
     
@@ -175,12 +174,15 @@ class Model {
             } else if let retrievalQuery = buffers["partial"] {
                 if retrievalQuery.isRequest {
                     retrievalQuery.isRequest = false
+                    print("retrive query: ")
+                    print(retrievalQuery)
                     let (latency, retrieveResult) = dm.partialRetrieve(chunk: retrievalQuery, mismatchFunction: mismatchFunction)
                     moduleLatency = max(moduleLatency, latency)
                     //                    time += latency
                     if retrieveResult != nil {
                         addToTrace(string: "Partial retrieving \(retrieveResult!.name)")
                         buffers["partial"] = retrieveResult!
+                        print(buffers["partial"])
                     } else {
                         addToTrace(string: "Partial retrieval failure")
                         buffers["partial"] = nil
