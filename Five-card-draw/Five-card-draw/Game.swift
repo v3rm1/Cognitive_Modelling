@@ -263,60 +263,65 @@ class Hand {
             print("Last cpu action: ", model.lastAction(slot: "cpu") as Any)
 
             if (model.loadedModel == "poker2" && model.waitingForAction) && model.actionChunk() {
-                switch (model.lastAction(slot: "cpu")!) {
-                case ("raise"):
-                    if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.25 * maxHandScore(cpu.sortHand(), tableCardCount)) {
-                        print("MODEL RAISED: ", playerToAct.betSize)
-                        actionMade(action: Action.raise)
-                        playerOnButton = player
-                        playerUtg = cpu
-                        changePlayerToAct()
-                    }
-                    else
-                        {
-                            print("MODEL CALLED: ", playerToAct.betSize)
-                            actionMade(action: Action.call)
+                if let lastact = model.lastAction(slot: "cpu") {
+                    switch (lastact) {
+                    case ("raise"):
+                        if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.25 * maxHandScore(cpu.sortHand(), tableCardCount)) {
+                            print("MODEL RAISED: ", playerToAct.betSize)
+                            actionMade(action: Action.raise)
                             playerOnButton = player
                             playerUtg = cpu
                             changePlayerToAct()
                         }
-                case ("start"):
-                    if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.5 * maxHandScore(cpu.sortHand(), tableCardCount)) {
-                        model.modifyLastAction(slot: "cpu", value: String("raise"))
-                        print("MODEL RAISED: ", playerToAct.betSize)
-                        actionMade(action: Action.raise)
-                        playerOnButton = player
-                        playerUtg = cpu
-                        changePlayerToAct()
-                    }
-                    else if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.75 * maxHandScore(cpu.sortHand(), tableCardCount)) {
-                            model.modifyLastAction(slot: "cpu", value: String("call"))
-                            print("MODEL CALLED: ", playerToAct.betSize)
-                            actionMade(action: Action.call)
+                        else
+                            {
+                                print("MODEL CALLED: ", playerToAct.betSize)
+                                actionMade(action: Action.call)
+                                playerOnButton = player
+                                playerUtg = cpu
+                                changePlayerToAct()
+                            }
+                    case ("start"):
+                        if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.5 * maxHandScore(cpu.sortHand(), tableCardCount)) {
+                            model.modifyLastAction(slot: "cpu", value: String("raise"))
+                            print("MODEL RAISED: ", playerToAct.betSize)
+                            actionMade(action: Action.raise)
                             playerOnButton = player
                             playerUtg = cpu
                             changePlayerToAct()
-                    }
-                    else
-                        {
-                        model.modifyLastAction(slot: "cpu", value: String("fold"))
+                        }
+                        else if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.75 * maxHandScore(cpu.sortHand(), tableCardCount)) {
+                                model.modifyLastAction(slot: "cpu", value: String("call"))
+                                print("MODEL CALLED: ", playerToAct.betSize)
+                                actionMade(action: Action.call)
+                                playerOnButton = player
+                                playerUtg = cpu
+                                changePlayerToAct()
+                        }
+                        else
+                            {
+                            model.modifyLastAction(slot: "cpu", value: String("fold"))
+                            print("MODEL FOLDED")
+                            print("Total Pot: ", totalPot)
+                            actionMade(action: Action.fold)
+                            }
+
+                    case ("call"):
+                        print("MODEL CALLED: ", playerToAct.betSize)
+                        actionMade(action: Action.call)
+                        playerOnButton = player
+                        playerUtg = cpu
+                        changePlayerToAct()
+
+                    case ("fold"):
                         print("MODEL FOLDED")
                         print("Total Pot: ", totalPot)
                         actionMade(action: Action.fold)
-                        }
-
-                case ("call"):
-                    print("MODEL CALLED: ", playerToAct.betSize)
+                    default:  actionMade(action: Action.call)
+                    }
+                }
+                else {
                     actionMade(action: Action.call)
-                    playerOnButton = player
-                    playerUtg = cpu
-                    changePlayerToAct()
-
-                case ("fold"):
-                    print("MODEL FOLDED")
-                    print("Total Pot: ", totalPot)
-                    actionMade(action: Action.fold)
-                default:  actionMade(action: Action.call)
                 }
                 print("END: modelAction")
                 consoleLogPlayer()
