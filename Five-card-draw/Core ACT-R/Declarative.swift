@@ -24,7 +24,7 @@ class Declarative  {
     /// A dictionary with all the chunks in DM, indexed by chunk name
     var chunks = [String:Chunk]()
     /// The mismatch penalty, to be used in partial matching (mp in ACT-R)
-    var misMatchPenalty: Double = 1
+    var misMatchPenalty: Double = 0.1
     /// The latency factor parameter (lf in ACT-R)
     var latencyFactor = 0.2
     
@@ -150,32 +150,30 @@ class Declarative  {
      - mismatchFunction: A mismatch function that takes two Values, and returns a mismatch value (or nil if the two values cannot be properly compared). The function should return a value between -1 and 0 (or nil).
      - returns: A Tuple consisting of the retrieval time and the retrieved Chunk (or the maximum retrieval time and nil if the retrieval fails
      */
-    func partialRetrieve(chunk: Chunk, mismatchFunction: (_ x: Value, _ y: Value) -> Double? ) -> (Double, Chunk?) {
+    func partialRetrieve(chunk: Chunk, mismatchFunction: (_ x: Value, _ y: Value) -> Double ) -> (Double, Chunk?) {
         retrieveError = false
        var bestMatch: Chunk? = nil
         var bestActivation: Double = retrievalThreshold
         chunkloop: for (_,ch1) in chunks {
             var mismatch = 0.0
+            if ch1.name == "goal" {
+                continue chunkloop
+            }
             for (slot,value) in chunk.slotvals {
                 if let val1 = ch1.slotvals[slot] {
-                    if !val1.isEqual(value: value) {
+                    if !val1.isEqual(value: value) && slot != "isa" {
                         let slotmismatch = mismatchFunction(val1, value)
-                        if slotmismatch != nil {
-                            mismatch += slotmismatch! * misMatchPenalty
-                        } else
-                        {
-                            continue chunkloop
-                        }
+                            mismatch += slotmismatch * misMatchPenalty
                     }
-                } else { continue chunkloop }
+                }
             }
-//            println("Candidate: \(ch1) with activation \(ch1.activation() + mismatch)")
-            if ch1.activation()  + mismatch > bestActivation {
+            if mismatch > bestActivation {
                 bestActivation = ch1.activation() + mismatch
                 bestMatch = ch1
             }
         }
-        if bestActivation > retrievalThreshold {
+        if bestActivation > retrievalThreshold && chunks.count > 1{
+            print("Partial match found")
             return (latency(activation: bestActivation) , bestMatch)
         } else {
             retrieveError = true
