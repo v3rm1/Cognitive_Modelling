@@ -78,13 +78,13 @@ class ViewController: UIViewController {
         hand.actionMade(action: .draw)
         if (hand.playerToActAfter == hand.player) {
             for i in 0..<playerCards.count {
-                playerCards[i].layer.borderWidth = 0
+                cpuCards[i].layer.shadowOpacity = 0
             }
         }
         else {
             print("CPU CARD COUNT: ", cpuCards.count)
             for i in 0..<cpuCards.count {
-                cpuCards[i].layer.borderWidth = 0
+                playerCards[i].layer.shadowOpacity = 0
             }
         }
         hand.moveToNextGameState()
@@ -119,7 +119,6 @@ class ViewController: UIViewController {
                     }
                 }
             }
-            addRemoveBorder(sender)
         }
     }
     override func viewDidLoad() {
@@ -140,9 +139,12 @@ class ViewController: UIViewController {
     }
     
     func addRemoveBorder(_ button: UIButton) {
-        button.layer.borderColor = UIColor.blue.cgColor
-        button.layer.cornerRadius = 4
-        button.layer.borderWidth = button.layer.borderWidth > 0 ? 0 : 2
+        button.layer.shadowColor = UIColor(red: 255, green: 255, blue: 0, alpha: 0.25).cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 0)
+        button.layer.shadowOpacity = button.layer.shadowOpacity > 0 ? 0 : 1.0
+        button.layer.shadowRadius = 4.0
+        button.layer.masksToBounds = false
+        button.layer.cornerRadius = 4.0
     }
     
     func displayCards() {
@@ -179,7 +181,7 @@ class ViewController: UIViewController {
         self.winLabel.text = playerName + " wins $" + String(amount)
         self.winLabel2.text = handName
         UIView.animate(withDuration: 0.25, delay: 0.2,
-                       options: [ .curveEaseOut],
+                       options: [ .curveEaseOut, UIView.AnimationOptions.allowUserInteraction],
                        animations: {
                         self.winLabel.center.x = self.view.center.x
                         self.winLabel2.center.x = self.view.center.x
@@ -195,7 +197,7 @@ class ViewController: UIViewController {
     }
     
     func revWinAnimation (b: Bool) {
-        UIView.animate(withDuration: 0.5, delay: 1.5,
+        UIView.animate(withDuration: 0.5, delay: 4,
                        options: [ .curveEaseIn],
                        animations: {
                         self.winLabel.center.x -= self.view.bounds.width
@@ -218,6 +220,10 @@ class ViewController: UIViewController {
     
     func refreshControls() {
         if (hand.waitingForWinAnimation) {
+            for i in 0..<5 {
+                cpuCards[i].setBackgroundImage(UIImage(named: hand.cpu.cards[i].toPictureName()), for: .normal)
+                cpuCards[i].setTitle("", for: .normal)
+            }
             winAnimation(playerName: hand.winnername, amount: totalPot!.text!, handName: hand.winninghandname)
             return
         }
