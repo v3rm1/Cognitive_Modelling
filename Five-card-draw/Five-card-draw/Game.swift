@@ -517,6 +517,7 @@ class Hand {
         cpuCardsToDrawIndexes = []
         playerCardsToDrawIndexes = []
         playerToAct = player
+        playerToActAfter = cpu
         print("Init player values")
         consoleLogPlayer()
         collectBlinds()
