@@ -268,6 +268,16 @@
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIc-bi-blN">
+                                <rect key="frame" x="277" y="225" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Model output">
+                                    <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnShowTrace_Clicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HYI-GM-Va2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -298,6 +308,7 @@
                         <outlet property="playerChipsIcon" destination="2ZB-Ry-Ljv" id="AWd-R8-b8U"/>
                         <outlet property="playerView" destination="pEF-oq-yuu" id="4E7-pl-9xe"/>
                         <outlet property="potChipImage" destination="EIT-OF-uJO" id="aIN-Ed-ILP"/>
+                        <outlet property="showTrace" destination="cIc-bi-blN" id="CB1-Z0-q9L"/>
                         <outlet property="status" destination="hRe-lC-vX0" id="fzI-2x-CeU"/>
                         <outlet property="totalPot" destination="GfQ-PK-qtu" id="DIK-Tm-2Iq"/>
                         <outlet property="winLabel" destination="6lJ-Pw-kwB" id="zeo-se-Ybg"/>

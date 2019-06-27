@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     let CPU_NAME = "CPU"
     // Controls
     @IBOutlet weak var winLabel: UILabel!
+    @IBOutlet weak var showTrace: UIButton!
     @IBOutlet weak var winLabel2: UILabel!
     @IBOutlet weak var cpuCard1: UIButton!
     @IBOutlet weak var cpuCard2: UIButton!
@@ -72,6 +73,19 @@ class ViewController: UIViewController {
         hand.changePlayerOnButton()
         hand.moveToNextGameState()
         refreshControls()
+    }
+    
+    @IBAction func btnShowTrace_Clicked(_ sender: Any) {
+        let alertController = UIAlertController(title: "Model Trace", message: model.trace, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            print(action)
+        }
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true) {
+            // ...
+        }
     }
     
     @IBAction func btnDraw_Clicked(_ sender: UIButton) {
