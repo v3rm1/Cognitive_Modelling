@@ -83,11 +83,6 @@ class ViewController: UIViewController {
         }
         alertController.addAction(cancelAction)
         
-        let destroyAction = UIAlertAction(title: "Destroy", style: .destructive) { (action) in
-            print(action)
-        }
-        alertController.addAction(destroyAction)
-        
         self.present(alertController, animated: true) {
             // ...
         }
