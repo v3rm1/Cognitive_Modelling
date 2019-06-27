@@ -34,41 +34,26 @@
                                         <rect key="frame" x="15" y="45" width="62" height="98"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="cpuCardTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zq5-vJ-eti"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yON-Fd-9Fr">
                                         <rect key="frame" x="86" y="45" width="62" height="98"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="cpuCardTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="snm-Ie-rJO"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Mu-ph-tPc">
                                         <rect key="frame" x="156" y="45" width="62" height="98"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="cpuCardTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HBT-h1-uqu"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STa-Gc-n6A">
                                         <rect key="frame" x="226" y="45" width="62" height="98"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="cpuCardTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="18p-Oh-Dck"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIL-2g-H88">
                                         <rect key="frame" x="296" y="45" width="62" height="98"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="cpuCardTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="27c-T9-HbD"/>
-                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chipBlackWhite_sideBorder" translatesAutoresizingMaskIntoConstraints="NO" id="zF3-UB-TsI">
                                         <rect key="frame" x="108" y="12" width="20" height="20"/>
