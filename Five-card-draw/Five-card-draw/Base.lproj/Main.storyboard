@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -225,6 +225,13 @@
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CPU Action: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHQ-rI-xQf">
+                                        <rect key="frame" x="0.0" y="75" width="375" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.044013824419100421" green="0.41884141666283881" blue="0.047123077509243085" alpha="0.3692781690140845" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -269,10 +276,11 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIc-bi-blN">
-                                <rect key="frame" x="277" y="225" width="92" height="30"/>
+                                <rect key="frame" x="227" y="399" width="132" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Model output">
-                                    <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <state key="normal" title="View Model Output">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="btnShowTrace_Clicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HYI-GM-Va2"/>
@@ -287,6 +295,7 @@
                         <outlet property="btnDraw" destination="np4-k5-FGg" id="ALs-33-9x8"/>
                         <outlet property="btnFold" destination="ClL-ph-2sN" id="Z05-YK-V96"/>
                         <outlet property="btnRaise" destination="RPJ-MW-mwi" id="AdC-Xz-udn"/>
+                        <outlet property="compAction" destination="bHQ-rI-xQf" id="ceS-zP-HKp"/>
                         <outlet property="cpuBetSize" destination="bE3-c6-gv2" id="2wZ-ps-7Yo"/>
                         <outlet property="cpuCard1" destination="8wg-C6-qyQ" id="K7w-fY-9os"/>
                         <outlet property="cpuCard2" destination="yON-Fd-9Fr" id="Niq-d1-TYC"/>

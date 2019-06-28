@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     let CPU_NAME = "CPU"
     // Controls
     @IBOutlet weak var winLabel: UILabel!
+    @IBOutlet weak var compAction: UILabel!
     @IBOutlet weak var showTrace: UIButton!
     @IBOutlet weak var winLabel2: UILabel!
     @IBOutlet weak var cpuCard1: UIButton!
@@ -152,6 +153,26 @@ class ViewController: UIViewController {
         
     }
     
+    func displayCPUAction() -> String {
+        var cpuAction : String
+        if model.lastAction(slot: "cpu") == "raise" {
+            cpuAction = "CPU Action: Raise"
+        }
+        if hand.gameState == .postDraw {
+            cpuAction = "CPU Action: Draw"
+        }
+        if model.lastAction(slot: "cpu") == "call" {
+            cpuAction = "CPU Action: Call"
+        }
+        if model.lastAction(slot: "cpu") == "fold" {
+            cpuAction = "CPU Action: Fold"
+        }
+        else {
+            cpuAction = "CPU Action: Raise"
+        }
+        return cpuAction
+    }
+    
     func addRemoveBorder(_ button: UIButton) {
         button.layer.shadowColor = UIColor(red: 255, green: 255, blue: 0, alpha: 0.25).cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -241,14 +262,14 @@ class ViewController: UIViewController {
             winAnimation(playerName: hand.winnername, amount: totalPot!.text!, handName: hand.winninghandname)
             return
         }
-        
+
         playerBetSize.text = String(hand.player.betSize)
         playerChipCount.text = String(hand.player.chipCount)
         cpuBetSize.text = String(hand.cpu.betSize)
         cpuChipCount.text = String(hand.cpu.chipCount)
         totalPot.text = String(hand.totalPot)
         status.text = hand.playerToAct.name + "'s turn"
-        
+        compAction.text = displayCPUAction()
         // Show/Hide bet chip icon
         if (hand.player.betSize > 0) {
             playerChipsIcon.isHidden = false
