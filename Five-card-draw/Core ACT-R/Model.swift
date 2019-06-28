@@ -107,7 +107,7 @@ class Model {
         // absolute difference divided by the requested slot value
         if let xx = x.number(){
             if let yy = y.number(){
-                if fabs(xx-yy)/fabs(yy) < 0.5 {
+                if fabs(xx-yy)/fabs(yy) < 0.7 {
                     return -fabs(xx-yy)
                 }
             }
