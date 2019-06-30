@@ -161,6 +161,7 @@ class Player {
 class Hand {
     let deck = Deck()
     var totalPot: Int = 0
+    var called: Int = 0
     var sb = 10
     var bb = 20
     var gameState = GameState.preDraw
@@ -418,19 +419,25 @@ class Hand {
             gameState = .done
             playerToActAfter.chipCount += totalPot
             totalPot = 0
+            called = 0
             consoleLogPlayer()
         case .call:
             playerToAct.chipCount -= playerToActAfter.betSize - playerToAct.betSize
             totalPot += playerToActAfter.betSize - playerToAct.betSize
             playerToAct.betSize = playerToActAfter.betSize
             print("ActionMade Call")
-            gameState = .done
+            called += 1
+            if (called == 2) {
+                called = 0
+                gameState = .done
+            }
             consoleLogPlayer()
         case .raise:
             playerToAct.chipCount -= playerToActAfter.betSize - playerToAct.betSize + bb
             totalPot += playerToActAfter.betSize - playerToAct.betSize + bb
             playerToAct.betSize += playerToActAfter.betSize - playerToAct.betSize + bb
             print("ActionMade Raise")
+            called = 0
             consoleLogPlayer()
 
         case .draw:
