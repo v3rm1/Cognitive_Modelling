@@ -357,7 +357,7 @@ class Hand {
         self.winnername = winner!.name
         self.winninghandname = "With " + HandComparer().getHandRank(h: winner!.cards).description
         self.waitingForWinAnimation = true
-        //reset()
+        reset()
     }
 
     func getWinnerOfTheHand() -> Player? {
@@ -424,6 +424,7 @@ class Hand {
             totalPot += playerToActAfter.betSize - playerToAct.betSize
             playerToAct.betSize = playerToActAfter.betSize
             print("ActionMade Call")
+            gameState = .done
             consoleLogPlayer()
         case .raise:
             playerToAct.chipCount -= playerToActAfter.betSize - playerToAct.betSize + bb
