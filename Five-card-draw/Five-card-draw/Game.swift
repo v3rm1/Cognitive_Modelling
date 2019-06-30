@@ -519,6 +519,7 @@ class Hand {
     
     func reset() {
         totalPot = 0
+        called = 0
         playerUtg.betSize = 0
         playerOnButton.betSize = 0
         gameState = .preDraw
