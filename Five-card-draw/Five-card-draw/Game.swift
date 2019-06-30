@@ -291,7 +291,7 @@ class Hand {
                             playerUtg = cpu
                             changePlayerToAct()
                         }
-                        if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.5 * maxHandScore(cpu.sortHand(), tableCardCount)) {
+                        else if (handEvaluator(cpu.sortHand(), tableCardCount) > 0.5 * maxHandScore(cpu.sortHand(), tableCardCount)) {
                                 model.modifyLastAction(slot: "cpu", value: String("call"))
                                 print("MODEL CALLED: ", playerToAct.betSize)
                                 actionMade(action: Action.call)
